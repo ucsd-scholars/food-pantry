@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "778703925901",
+    "firebase_url": "https://tritonfoodpantry.firebaseio.com",
+    "project_id": "tritonfoodpantry",
+    "storage_bucket": "tritonfoodpantry.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778703925901:android:34c54cb2f0ea8f31",
+        "android_client_info": {
+          "package_name": "ucsd_scholars.tritonfoodpantry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "778703925901-6as22al61bn7626ip0qcn10ujhsmdcpe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ucsd_scholars.tritonfoodpantry",
+            "certificate_hash": "14b3807e8005030d7578919672c89dfffa07c2d1"
+          }
+        },
+        {
+          "client_id": "778703925901-s9f5iu6u7fvnpkiq5gb20cf1qkqgljkn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3c4giIz6aqfh-jKdAd1FHKyc_gVfIJLc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "778703925901-s9f5iu6u7fvnpkiq5gb20cf1qkqgljkn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
