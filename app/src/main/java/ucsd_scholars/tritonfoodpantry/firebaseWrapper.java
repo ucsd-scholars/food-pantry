@@ -47,4 +47,9 @@ public class firebaseWrapper {
         });
     }
 
+    public void writeData(Object data){
+        DatabaseReference Data = database.getReference("Data");
+        Data.setValue(data.toString());
+    }
+
 }
