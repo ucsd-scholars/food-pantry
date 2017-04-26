@@ -5,20 +5,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        firebaseWrapper db = new firebaseWrapper();
-        db.addMessage("Database!");
-        db.readMsg();
-
+        setContentView(R.layout.activity_login);
     }
 
-    public void onClickLogin(View view){
-        Intent intent = new Intent(this, LoginActivity.class);
+    public void login(View view){
+        Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
 }
