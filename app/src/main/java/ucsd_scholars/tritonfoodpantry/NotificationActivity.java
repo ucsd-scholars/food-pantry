@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class NotificationActivity extends AppCompatActivity {
 
@@ -37,13 +38,23 @@ public class NotificationActivity extends AppCompatActivity {
     private void pushNotification() {
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this);
+
+        if(messageTitle.getText().toString().isEmpty()){
+            Toast.makeText(getApplicationContext(), "Please enter a Title", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(messageText.getText().toString().isEmpty()){
+            Toast.makeText(getApplicationContext(), "Please enter a Message", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         notificationBuilder.setSmallIcon(R.drawable.home);
         notificationBuilder.setContentTitle(messageTitle.getText().toString());
         notificationBuilder.setContentText(messageText.getText().toString());
 
 
         // cute little idiom
-        Intent notificationIntent = new Intent(this, MainActivity.class);
+        Intent notificationIntent = new Intent(this, HomeActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(
                 this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder.setContentIntent(contentIntent);

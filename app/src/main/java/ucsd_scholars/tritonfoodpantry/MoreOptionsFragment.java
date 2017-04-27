@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 
 /**
@@ -17,7 +18,7 @@ import android.view.ViewGroup;
  * Use the {@link MoreOptionsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MoreOptionsFragment extends Fragment {
+public class MoreOptionsFragment extends Fragment{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -26,6 +27,7 @@ public class MoreOptionsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Button button_send_Notifications;
 
     private OnFragmentInteractionListener mListener;
 
@@ -64,6 +66,12 @@ public class MoreOptionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        View view =  inflater.inflate(R.layout.fragment_more_options,
+                container, false);
+
+        // button_send_Notifications = (Button) view.findViewById(R.id.button_toNotificationActivity);
+        // button_send_Notifications.setOnClickListener(this);
+
         return inflater.inflate(R.layout.fragment_more_options, container, false);
     }
 
@@ -105,4 +113,10 @@ public class MoreOptionsFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+//    @Override
+//    public void onClick(View view){
+//        Intent intent = new Intent(getActivity(), NotificationActivity.class);
+//        getActivity().startActivity(intent);
+//    }
 }
