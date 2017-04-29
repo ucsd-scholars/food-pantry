@@ -21,12 +21,18 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"
-                    android:label="Sign in">
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login">
         </activity>
         <activity android:name=".HomeActivity">
         </activity>
-        <activity android:name=".NotificationActivity">
+        <activity android:name=".NotificationActivity"
+                  android:label="@string/title_activity_notifications">>
+        </activity>
+        <activity
+            android:name=".SignUpActivity"
+            android:label="@string/title_activity_signup">
         </activity>
     </application>
 

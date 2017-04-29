@@ -2,18 +2,22 @@
     <string name="app_name">TritonFoodPantry</string>
     <string name="title">Triton Food Pantry</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_signup">Sign Up</string>
+    <string name="title_activity_notifications">Notifications</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
+    <string name="prompt_password">Password</string>
+    <string name="create_password">Create Password</string>
+    <string name="action_sign_up">Register</string>
+    <string name="action_sign_in">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
+    <string name="error_email_exists">An account under this email already exists</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+        completions." </string>
+
 
 </resources>
