@@ -6,13 +6,31 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button_toVolunteer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Volunteer" />
+
+        <Button
+            android:id="@+id/button_toContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contact Us" />
+
+        <Button
+            android:id="@+id/button_toSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Settings" />
 
         <Button
             android:id="@+id/button_toNotificationActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onClickNotificationButton"
             android:text="Send Notification" />
 
     </LinearLayout>

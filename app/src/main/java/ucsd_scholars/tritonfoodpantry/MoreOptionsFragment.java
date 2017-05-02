@@ -1,6 +1,7 @@
 package ucsd_scholars.tritonfoodpantry;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,7 +19,7 @@ import android.widget.Button;
  * Use the {@link MoreOptionsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MoreOptionsFragment extends Fragment{
+public class MoreOptionsFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -28,6 +29,9 @@ public class MoreOptionsFragment extends Fragment{
     private String mParam1;
     private String mParam2;
     private Button button_send_Notifications;
+
+    // for now, this boolean checks if user has admin options
+    boolean isAdmin = true;
 
     private OnFragmentInteractionListener mListener;
 
@@ -69,10 +73,11 @@ public class MoreOptionsFragment extends Fragment{
         View view =  inflater.inflate(R.layout.fragment_more_options,
                 container, false);
 
-        // button_send_Notifications = (Button) view.findViewById(R.id.button_toNotificationActivity);
-        // button_send_Notifications.setOnClickListener(this);
+         button_send_Notifications = (Button) view.findViewById(R.id.button_toNotificationActivity);
+         button_send_Notifications.setOnClickListener(this);
 
-        return inflater.inflate(R.layout.fragment_more_options, container, false);
+        //return inflater.inflate(R.layout.fragment_more_options, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -114,9 +119,19 @@ public class MoreOptionsFragment extends Fragment{
         void onFragmentInteraction(Uri uri);
     }
 
-//    @Override
-//    public void onClick(View view){
-//        Intent intent = new Intent(getActivity(), NotificationActivity.class);
-//        getActivity().startActivity(intent);
-//    }
+    @Override
+    public void onClick(View view){
+        switch (view.getId()) {
+            case R.id.button_toNotificationActivity:
+                Intent intent = new Intent(getActivity(), NotificationActivity.class);
+                getActivity().startActivity(intent);
+                break;
+            case R.id.button_toContact:
+                break;
+            case R.id.button_toSettings:
+                break;
+            case R.id.button_toVolunteer:
+                break;
+        }
+    }
 }

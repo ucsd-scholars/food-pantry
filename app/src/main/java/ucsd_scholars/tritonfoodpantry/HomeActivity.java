@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
 
 public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,
                                                     HomeFragment.OnFragmentInteractionListener,
@@ -63,17 +62,13 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         //
     }
 
-    // asks user if he/she wants to exit, if yes, then we start mainactivity and tell it to exit
     @Override
     public void onBackPressed() {
+        // when back is pressed, we go back to mainactivity and tell it to exit
         Intent intent = new Intent(HomeActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("EXIT", true);
         startActivity(intent);
     }
 
-    public void onClickNotificationButton(View view){
-        Intent intent = new Intent(this, NotificationActivity.class);
-        startActivity(intent);
-    }
 }
