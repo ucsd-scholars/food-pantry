@@ -8,13 +8,11 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.DatePicker;
-import android.widget.TextView;
 
 import java.util.Calendar;
 
 public class CalendarActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
     private DatePicker datePicker;
     private Calendar calendar;
 
@@ -25,13 +23,10 @@ public class CalendarActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
                     return true;
             }
             return false;
@@ -54,10 +49,13 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     void addCalendarListener(){
-        datePicker.init(calendar.YEAR, calendar.MONTH, calendar.DAY_OF_MONTH, new DatePicker.OnDateChangedListener() {
+        datePicker.init(calendar.get(calendar.YEAR), calendar.get(calendar.MONTH), calendar.get(calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
-                addEvent("Opening", "Triton Food Pantry", calendar.getTimeInMillis(), calendar.getTimeInMillis()+(1000*60*60));
+                Calendar temp = calendar.getInstance();
+                temp.set(i, i1, i2);
+                addEvent("Opening", "Triton Food Pantry", temp.getTimeInMillis(), temp.getTimeInMillis()+(1000*60*60));
+
             }
         });
     }
