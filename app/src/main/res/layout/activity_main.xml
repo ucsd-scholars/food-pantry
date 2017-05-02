@@ -6,10 +6,12 @@
     android:layout_height="match_parent"
     tools:context="ucsd_scholars.tritonfoodpantry.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="172dp"
+        android:layout_height="43dp"
+        android:onClick="on"
+        android:text="Login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
