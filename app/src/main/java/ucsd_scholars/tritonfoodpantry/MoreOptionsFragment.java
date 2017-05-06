@@ -73,8 +73,15 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
         View view =  inflater.inflate(R.layout.fragment_more_options,
                 container, false);
 
-         button_send_Notifications = (Button) view.findViewById(R.id.button_toNotificationActivity);
-         button_send_Notifications.setOnClickListener(this);
+        button_send_Notifications = (Button) view.findViewById(R.id.button_toNotificationActivity);
+
+        // gives admins notification ability, hides its otherwise
+        if(isAdmin){
+            button_send_Notifications.setOnClickListener(this);
+        }
+        else{
+            button_send_Notifications.setVisibility(View.GONE);
+        }
 
         //return inflater.inflate(R.layout.fragment_more_options, container, false);
         return view;
@@ -121,14 +128,17 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View view){
+        Intent intent;
         switch (view.getId()) {
             case R.id.button_toNotificationActivity:
-                Intent intent = new Intent(getActivity(), NotificationActivity.class);
+                intent = new Intent(getActivity(), NotificationActivity.class);
                 getActivity().startActivity(intent);
                 break;
             case R.id.button_toContact:
                 break;
             case R.id.button_toSettings:
+                intent = new Intent(getActivity(), SettingsActivity.class);
+                getActivity().startActivity(intent);
                 break;
             case R.id.button_toVolunteer:
                 break;

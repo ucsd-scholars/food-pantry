@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "778703925901-cbej07v0io8llbbm7cakngo0ipjr86cr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ucsd_scholars.tritonfoodpantry",
+            "certificate_hash": "0bed565b562afdd45d995002780a7891fe38eb87"
+          }
+        },
+        {
           "client_id": "778703925901-6as22al61bn7626ip0qcn10ujhsmdcpe.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
