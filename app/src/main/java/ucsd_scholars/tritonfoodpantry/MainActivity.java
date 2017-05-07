@@ -72,6 +72,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onClickGoogle(View view){
+        Intent intent = new Intent(this, GoogleSignInActivity.class);
+        startActivity(intent);
+    }
+
     // adds authentication listener to auth instance
     @Override
     public void onStart() {

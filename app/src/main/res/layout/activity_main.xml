@@ -50,5 +50,13 @@
             android:text="Sign In" />
     </LinearLayout>
 
+    <ImageButton
+        android:id="@+id/button_Google"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClickGoogle"
+        android:src="@drawable/google_48"
+        android:text="Google" />
+
 
 </LinearLayout>
