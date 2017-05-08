@@ -23,9 +23,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+
+import static ucsd_scholars.tritonfoodpantry.MainActivity.mAuth;
 
 
 /**
@@ -42,10 +43,10 @@ public class GoogleSignInActivity extends FragmentActivity implements
     public ProgressDialog mProgressDialog;
 
     // [START declare_auth]
-    private FirebaseAuth mAuth;
+    //private FirebaseAuth mAuth;
     // [END declare_auth]
 
-    private GoogleApiClient mGoogleApiClient;
+    protected static GoogleApiClient mGoogleApiClient;
     private TextView mStatusTextView;
     private TextView mDetailTextView;
 
@@ -78,7 +79,7 @@ public class GoogleSignInActivity extends FragmentActivity implements
                 .build();
 
         // [START initialize_auth]
-        mAuth = FirebaseAuth.getInstance();
+        //mAuth = FirebaseAuth.getInstance();
         // [END initialize_auth]
     }
 
@@ -88,12 +89,12 @@ public class GoogleSignInActivity extends FragmentActivity implements
         super.onStart();
         // Check if user is signed in (non-null); if so, we go straight to home screen
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
+        /*if(currentUser != null){
             goToHomeActivity();
             Toast.makeText(GoogleSignInActivity.this, "Signed in as " + currentUser.getDisplayName(),
                     Toast.LENGTH_SHORT).show();
-        }
-        //updateUI(currentUser);
+        }*/
+        updateUI(currentUser);
     }
     // [END on_start_check_user]
 

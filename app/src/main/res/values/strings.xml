@@ -150,4 +150,7 @@
     <string name="id_fmt">User ID: %s</string>
     <string name="email_fmt">Email: %s</string>
 
+    <string name="facebook_app_id">1705147896166834</string>
+    <string name="fb_login_protocol_scheme">fb1705147896166834</string>
+
 </resources>

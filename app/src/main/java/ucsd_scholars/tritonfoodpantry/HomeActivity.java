@@ -1,6 +1,5 @@
 package ucsd_scholars.tritonfoodpantry;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -62,13 +61,13 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         //
     }
 
-    @Override
-    public void onBackPressed() {
-        // when back is pressed, we go back to mainactivity and tell it to exit
-        Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("EXIT", true);
-        startActivity(intent);
-    }
+//    @Override
+//    public void onBackPressed() {
+//        // when back is pressed, we go back to mainactivity and tell it to exit
+//        Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        intent.putExtra("EXIT", true);
+//        startActivity(intent);
+//    }
 
 }

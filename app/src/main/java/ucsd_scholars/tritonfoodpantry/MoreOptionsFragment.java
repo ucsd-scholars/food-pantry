@@ -1,15 +1,25 @@
 package ucsd_scholars.tritonfoodpantry;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+
+import static ucsd_scholars.tritonfoodpantry.GoogleSignInActivity.mGoogleApiClient;
+import static ucsd_scholars.tritonfoodpantry.MainActivity.mAuth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -142,6 +152,50 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
                 break;
             case R.id.button_toVolunteer:
                 break;
+            case R.id.button_SignOut:
+                signOutDialog();
+                //mAuth.signOut();
+                break;
         }
+    }
+
+    // prompts user and asks if he/she wants to sign out; if so, we sign out and return to main activity
+    public void signOutDialog(){
+        Log.d("MoreOptionsFragment", "sign out button pressed");
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Sign Out")
+                .setMessage("Are you sure you want to sign out?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Firebase sign out
+                        mAuth.signOut();
+
+                        // Google sign out
+                        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                                new ResultCallback<Status>() {
+                                    @Override
+                                    public void onResult(@NonNull Status status) {
+                                        returnToMain();
+                                    }
+                                });
+
+                       /* getActivity().finish();
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        startActivity(intent);*/
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+    // when user signs out, we return to main screen
+    public void returnToMain(){
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        startActivity(intent);
     }
 }
