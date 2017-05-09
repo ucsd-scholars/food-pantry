@@ -140,6 +140,10 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
     public void onClick(View view){
         Intent intent;
         switch (view.getId()) {
+            case R.id.button_toAdminMenu:
+                intent = new Intent(getActivity(), AdminMenuActivity.class);
+                getActivity().startActivity(intent);
+                break;
             case R.id.button_toNotificationActivity:
                 intent = new Intent(getActivity(), NotificationActivity.class);
                 getActivity().startActivity(intent);
@@ -156,6 +160,7 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
                 signOutDialog();
                 //mAuth.signOut();
                 break;
+
         }
     }
 

@@ -1,13 +1,18 @@
 package ucsd_scholars.tritonfoodpantry;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CalendarView;
+import android.widget.DatePicker;
+import android.widget.TextView;
+
+import java.util.Calendar;
 
 
 /**
@@ -27,12 +32,34 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private CalendarView calendar;
 
     private OnFragmentInteractionListener mListener;
 
-    public CalendarFragment() {
-        // Required empty public constructor
+    private TextView mTextMessage;
+    private DatePicker datePicker;
+    private Calendar calendar;
+
+    public CalendarFragment() {}
+
+    void addCalendarListener(){
+        datePicker.init(calendar.YEAR, calendar.MONTH, calendar.DAY_OF_MONTH, new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
+                addEvent("Opening", "Triton Food Pantry", calendar.getTimeInMillis(), calendar.getTimeInMillis()+(1000*60*60));
+            }
+        });
+    }
+
+    public void addEvent(String title, String location, long begin, long end) {
+        Intent intent = new Intent(Intent.ACTION_INSERT)
+                .setData(CalendarContract.Events.CONTENT_URI)
+                .putExtra(CalendarContract.Events.TITLE, title)
+                .putExtra(CalendarContract.Events.EVENT_LOCATION, location)
+                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, begin)
+                .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, end);
+        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
     /**
@@ -66,7 +93,18 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calendar, container, false);
+        View view =  inflater.inflate(R.layout.fragment_calendar,
+                container, false);
+
+        datePicker = (DatePicker) view.findViewById(R.id.datePicker);
+        datePicker.setOnClickListener(this);
+
+        calendar = Calendar.getInstance();
+
+        addCalendarListener();
+
+        //return inflater.inflate(R.layout.fragment_more_options, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -110,8 +148,10 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view){
+        Intent intent;
         switch (view.getId()) {
-
+            case R.id.datePicker:
+                break;
         }
     }
 }

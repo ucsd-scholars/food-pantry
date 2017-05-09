@@ -34,6 +34,13 @@
             android:text="Send Notification" />
 
         <Button
+            android:id="@+id/button_toAdminMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Administrator Actions" />
+
+
+        <Button
             android:id="@+id/button_SignOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

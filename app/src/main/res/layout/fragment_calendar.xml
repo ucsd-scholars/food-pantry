@@ -4,8 +4,9 @@
              android:layout_height="match_parent"
              tools:context="ucsd_scholars.tritonfoodpantry.CalendarFragment">
 
-    <CalendarView
+    <DatePicker
+        android:id="@+id/datePicker"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></CalendarView>
+        android:layout_height="match_parent" />
 
 </FrameLayout>
