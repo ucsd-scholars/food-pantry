@@ -14,13 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <Button
-        android:id="@+id/button_toNotificationActivity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClickNotifications"
-        android:text="Send Notification" />
-
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="match_parent"
@@ -28,5 +21,11 @@
         android:layout_gravity="bottom"
         android:layout_alignParentBottom="true"
         app:menu="@menu/bottom_nav_items" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="This is the Home Activity"/>
 
 </RelativeLayout>

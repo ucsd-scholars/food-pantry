@@ -58,6 +58,10 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         return true;
     }
 
+
+    // where the button takes you
+
+
     public void onClickNotifications(View view){
         Intent intent = new Intent(this, NotificationActivity.class);
         startActivity(intent);

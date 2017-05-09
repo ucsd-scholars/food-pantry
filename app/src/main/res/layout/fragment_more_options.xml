@@ -3,6 +3,18 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:context="ucsd_scholars.tritonfoodpantry.MoreOptionsFragment">
+    //if this comes up in the manual merge, take the other side because i messed this up
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <Button
+        android:id="@+id/button_toAdminMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickAdminMenu"
+        android:text="Administrator Actions" />
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -10,5 +22,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="This is the More Options Fragment"/>
+    </LinearLayout>
 
 </FrameLayout>

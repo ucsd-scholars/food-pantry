@@ -1,12 +1,16 @@
 package ucsd_scholars.tritonfoodpantry;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import static ucsd_scholars.tritonfoodpantry.R.id.button_toAdminMenu;
 
 
 /**
@@ -17,7 +21,7 @@ import android.view.ViewGroup;
  * Use the {@link MoreOptionsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MoreOptionsFragment extends Fragment {
+public class MoreOptionsFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -82,6 +86,19 @@ public class MoreOptionsFragment extends Fragment {
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onClick(View view){
+        Intent intent;
+        switch (view.getId()){
+            //other buttons in the screen
+            case R.id.button_toAdminMenu:
+                intent = new Intent(getActivity(), AdminMenuActivity.class);
+                getActivity().startActivity(intent);
+                break;
+            //other buttons in the screen
         }
     }
 
