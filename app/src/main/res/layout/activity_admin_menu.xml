@@ -12,28 +12,24 @@
         android:id="@+id/button_toAdminInventory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onClickInventory"
         android:text="Inventory"/>
 
     <Button
         android:id="@+id/button_addAdmin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onClickAddAdmin"
         android:text="Grant Administrator Privileges"/>
 
     <Button
         android:id="@+id/button_revokeAdmin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onClickRevokeAdmin"
         android:text="Revoke Administrator Privileges"/>
 
     <Button
         android:id="@+id/button_toNotificationActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onClickNotifications"
         android:text="Send Notification" />
 
 </LinearLayout>

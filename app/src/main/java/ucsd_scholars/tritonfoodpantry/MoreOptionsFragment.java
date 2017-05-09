@@ -38,7 +38,10 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private Button button_send_Notifications;
+
+    private Button button_to_Admin;
+    private Button button_to_Settings;
+    private Button button_sign_out;
 
     // for now, this boolean checks if user has admin options
     boolean isAdmin = true;
@@ -83,14 +86,20 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
         View view =  inflater.inflate(R.layout.fragment_more_options,
                 container, false);
 
-        button_send_Notifications = (Button) view.findViewById(R.id.button_toNotificationActivity);
+        button_to_Admin = (Button) view.findViewById(R.id.button_toAdminMenu);
+        button_sign_out = (Button) view.findViewById(R.id.button_SignOut);
+        button_to_Settings = (Button) view.findViewById(R.id.button_toSettings);
 
-        // gives admins notification ability, hides its otherwise
+        button_to_Settings.setOnClickListener(this);
+        button_sign_out.setOnClickListener(this);
+
+        // gives admins permissions like notification ability, hides its otherwise
         if(isAdmin){
-            button_send_Notifications.setOnClickListener(this);
+            button_to_Admin.setOnClickListener(this);
+
         }
         else{
-            button_send_Notifications.setVisibility(View.GONE);
+            button_to_Admin.setVisibility(View.GONE);
         }
 
         //return inflater.inflate(R.layout.fragment_more_options, container, false);

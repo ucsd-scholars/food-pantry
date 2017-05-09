@@ -41,6 +41,7 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
 
     public CalendarFragment() {}
 
+    // inits datepicker and calls addEvent when date is clicked on
     void addCalendarListener(){
         datePicker.init(calendar.YEAR, calendar.MONTH, calendar.DAY_OF_MONTH, new DatePicker.OnDateChangedListener() {
             @Override
@@ -50,6 +51,7 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
         });
     }
 
+    // when date on calendar is picked, we send to an event creation page
     public void addEvent(String title, String location, long begin, long end) {
         Intent intent = new Intent(Intent.ACTION_INSERT)
                 .setData(CalendarContract.Events.CONTENT_URI)

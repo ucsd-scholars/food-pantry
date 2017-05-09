@@ -28,23 +28,16 @@
             android:text="Settings" />
 
         <Button
-            android:id="@+id/button_toNotificationActivity"
+            android:id="@+id/button_SignOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Send Notification" />
+            android:text="Sign out" />
 
         <Button
             android:id="@+id/button_toAdminMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Administrator Actions" />
-
-
-        <Button
-            android:id="@+id/button_SignOut"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Sign out" />
 
     </LinearLayout>
 
