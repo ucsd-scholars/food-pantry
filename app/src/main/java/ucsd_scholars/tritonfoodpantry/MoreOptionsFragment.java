@@ -185,6 +185,8 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
                         mAuth.signOut();
 
                         // Google sign out
+                        // but i have to figure out how to check if we signed in through google to begin with
+                        // and this error occurs:  java.lang.IllegalStateException: GoogleApiClient is not connected yet.
                         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                                 new ResultCallback<Status>() {
                                     @Override
