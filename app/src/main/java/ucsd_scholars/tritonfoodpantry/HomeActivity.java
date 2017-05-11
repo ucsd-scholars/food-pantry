@@ -9,21 +9,47 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 
 public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,
                                                     HomeFragment.OnFragmentInteractionListener,
                                                     CalendarFragment.OnFragmentInteractionListener,
-                                                    MoreOptionsFragment.OnFragmentInteractionListener {
+                                                    MoreOptionsFragment.OnFragmentInteractionListener,
+                                                    OnConnectionFailedListener{
 
     private Fragment fragment;
     FragmentManager fragmentManager;
+    protected GoogleApiClient mGoogleApiClient;
+
+    private static final String TAG = "HomeActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        
+
+
+        // [START config_signin]
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                //  .requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken("778703925901-s9f5iu6u7fvnpkiq5gb20cf1qkqgljkn.apps.googleusercontent.com")
+                .requestEmail()
+                .build();
+        // [END config_signin]
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
         fragmentManager = getSupportFragmentManager();
         fragment = new HomeFragment();
         final FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -70,4 +96,16 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
 //        startActivity(intent);
 //    }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        // An unresolvable error has occurred and Google APIs (including Sign-In) will not
+        // be available.
+        Log.d("HomeActivity", "onConnectionFailed:" + connectionResult);
+        Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
+    }
+
+    // call this from moreoptionsfragment to help sign out user
+    protected GoogleApiClient getGoogleApiClient(){
+        return mGoogleApiClient;
+    }
 }

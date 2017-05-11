@@ -1,6 +1,7 @@
 package ucsd_scholars.tritonfoodpantry;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +34,15 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
+    // user's uid which we will store here
+    protected static String user_uid;
+
+    // our SharedPreferences will save our settings like user uid (which indicates if admin or not)
+    public static final String PREFS_NAME = "DejaPhotoPreferences";
+    protected static SharedPreferences settings;
+    private static SharedPreferences.Editor settingsEditor;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
+        settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        settingsEditor = settings.edit();
+
         // initialize the FirebaseAuth instance and the AuthStateListener method so
         // you can track whenever the user signs in or out.
         mAuth = FirebaseAuth.getInstance();
@@ -55,9 +68,11 @@ public class MainActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    //goToHomeActivity();
+                    // if user has never signed in, we set user uid and check if newly signed in user is admin
+                    if(!userPreviouslySignedIn()) {
+                        checkIfAdmin(user.getUid());
+                        goToHomeActivity();
+                    }
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -167,4 +182,33 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    // we check app's SharedPrefs to check if uid matches our stored admin uid
+    private void checkIfAdmin(String user_uid){
+        settingsEditor.putString("user_uid", user_uid);
+        if(user_uid.equals(getString(R.string.admin_uid))){
+            settingsEditor.putBoolean("isAdmin", true);
+            Toast.makeText(this, "ADMIN user uid: " + user_uid, Toast.LENGTH_SHORT).show();
+        }
+        else {
+            settingsEditor.putBoolean("isAdmin", false);
+            Toast.makeText(this, "ClIENT user uid: " + user_uid, Toast.LENGTH_SHORT).show();
+        }
+        settingsEditor.commit();
+    }
+
+    // we check app's SharedPrefs to check if uid is set; if not then user has never signed in
+    private boolean userPreviouslySignedIn(){
+        String current_uid = settings.getString("user_uid", null);
+        if (current_uid == null) {
+            return false;
+        }
+        return true;
+    }
+
+    // used to reset uid pref and admin status if user signs out
+    protected static void clear_uid_pref(){
+        settingsEditor.remove("user_uid");
+        settingsEditor.putBoolean("isAdmin", false);
+        settingsEditor.commit();
+    }
 }

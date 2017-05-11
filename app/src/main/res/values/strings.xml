@@ -153,4 +153,12 @@
     <string name="facebook_app_id">1705147896166834</string>
     <string name="fb_login_protocol_scheme">fb1705147896166834</string>
 
+    <!-- this string will be our admin_uid on firebase, so when user signs in with this uid -->
+    <!-- (presumably the one main foodpantry gmail account), then we will sign them in checking for this uid -->
+    <string name="admin_uid">czw9GL4bcTP0Qrc7Uga2uE9G9um1</string>
+
+    <string name="location">
+        <a href="http://www.google.com/">Link to Volunteer Interest Form</a>
+    </string>
+
 </resources>

@@ -41,10 +41,6 @@
             android:name=".SignUpActivity"
             android:label="@string/title_activity_signup">
         </activity>
-        <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings">
-        </activity>
         <activity android:name=".GoogleSignInActivity">
         </activity>
         <activity
@@ -70,6 +66,8 @@
         <activity android:name=".InventoryActivity">
         </activity>
         <activity android:name=".RevokeAdminActivity">
+        </activity>
+        <activity android:name=".VolunteerActivity">
         </activity>
     </application>
 

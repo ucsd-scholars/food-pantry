@@ -46,7 +46,7 @@ public class GoogleSignInActivity extends FragmentActivity implements
     //private FirebaseAuth mAuth;
     // [END declare_auth]
 
-    protected static GoogleApiClient mGoogleApiClient;
+    protected GoogleApiClient mGoogleApiClient;
     private TextView mStatusTextView;
     private TextView mDetailTextView;
 

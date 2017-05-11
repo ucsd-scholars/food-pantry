@@ -18,7 +18,6 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
-import static ucsd_scholars.tritonfoodpantry.GoogleSignInActivity.mGoogleApiClient;
 import static ucsd_scholars.tritonfoodpantry.MainActivity.mAuth;
 
 /**
@@ -40,11 +39,13 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
     private String mParam2;
 
     private Button button_to_Admin;
-    private Button button_to_Settings;
     private Button button_sign_out;
+    private Button button_volunteer;
+
+    private HomeActivity homeActivity;
 
     // for now, this boolean checks if user has admin options
-    boolean isAdmin = true;
+    boolean isAdmin = false;
 
     private OnFragmentInteractionListener mListener;
 
@@ -77,6 +78,10 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        homeActivity = (HomeActivity) getActivity();
+
+        // if user is admin, we allow access to admin menu
+        isAdmin = MainActivity.settings.getBoolean("isAdmin", false);
     }
 
     @Override
@@ -88,10 +93,10 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
 
         button_to_Admin = (Button) view.findViewById(R.id.button_toAdminMenu);
         button_sign_out = (Button) view.findViewById(R.id.button_SignOut);
-        button_to_Settings = (Button) view.findViewById(R.id.button_toSettings);
+        button_volunteer = (Button) view.findViewById(R.id.button_toVolunteer);
 
-        button_to_Settings.setOnClickListener(this);
         button_sign_out.setOnClickListener(this);
+        button_volunteer.setOnClickListener(this);
 
         // gives admins permissions like notification ability, hides its otherwise
         if(isAdmin){
@@ -159,11 +164,9 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
                 break;
             case R.id.button_toContact:
                 break;
-            case R.id.button_toSettings:
-                intent = new Intent(getActivity(), SettingsActivity.class);
-                getActivity().startActivity(intent);
-                break;
             case R.id.button_toVolunteer:
+                intent = new Intent(getActivity(), VolunteerActivity.class);
+                getActivity().startActivity(intent);
                 break;
             case R.id.button_SignOut:
                 signOutDialog();
@@ -184,16 +187,8 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
                         // Firebase sign out
                         mAuth.signOut();
 
-                        // Google sign out
-                        // but i have to figure out how to check if we signed in through google to begin with
-                        // and this error occurs:  java.lang.IllegalStateException: GoogleApiClient is not connected yet.
-                        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-                                new ResultCallback<Status>() {
-                                    @Override
-                                    public void onResult(@NonNull Status status) {
-                                        returnToMain();
-                                    }
-                                });
+                        // google sign out
+                        signOut();
 
                        /* getActivity().finish();
                         Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -209,8 +204,28 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
                 .show();
     }
 
+    private void signOut() {
+        // clears our user info from prefs
+        MainActivity.clear_uid_pref();
+
+        // Firebase sign out
+        mAuth.signOut();
+
+        // Google sign out
+        Auth.GoogleSignInApi.signOut(homeActivity.getGoogleApiClient()).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(@NonNull Status status) {
+                        goToHomeActivity();
+                    }
+                });
+
+        // Facebook sign out
+
+    }
+
     // when user signs out, we return to main screen
-    public void returnToMain(){
+    public void goToHomeActivity(){
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
     }

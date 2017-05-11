@@ -22,12 +22,6 @@
             android:text="Contact Us" />
 
         <Button
-            android:id="@+id/button_toSettings"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Settings" />
-
-        <Button
             android:id="@+id/button_SignOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
