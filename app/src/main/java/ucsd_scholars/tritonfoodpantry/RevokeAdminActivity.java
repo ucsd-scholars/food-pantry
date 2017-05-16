@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class RevokeAdminActivity extends AppCompatActivity {
 
@@ -29,16 +30,16 @@ public class RevokeAdminActivity extends AppCompatActivity {
 
     private void revokeAdmin(){
 
-        //if no text, toast
-
-        //if text, check if valid
-
-        //if text and valid adress
-        //Revoke user.getText().toString() admin privileges
-        //toast successful
-        //send recipient an email?
-
-        //else toast invalid
+        if (user.getText().toString().isEmpty()){
+            Toast.makeText(getApplication(), "Please Enter an Administrator's Email", Toast.LENGTH_SHORT).show();
+            return;
+        }else if(true/*text is an admin*/){
+            //revoke privileges
+            Toast.makeText(getApplicationContext(), "Privileges Revoked", Toast.LENGTH_SHORT).show();
+            return;
+        }else{
+            return;
+        }
 
     }
 }

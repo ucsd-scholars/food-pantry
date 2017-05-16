@@ -30,6 +30,10 @@ public class AdminMenuActivity extends AppCompatActivity implements View.OnClick
         button_revokeAdmin.setOnClickListener(this);
         button_editHomePage = (Button)findViewById(R.id.button_editHomePage);
         button_editHomePage.setOnClickListener(this);
+
+        //This button is gone for this branch
+        button_toInventory.setVisibility(View.GONE);
+
     }
 
     @Override

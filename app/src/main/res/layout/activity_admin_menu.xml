@@ -8,11 +8,13 @@
     android:orientation="vertical"
     tools:context="ucsd_scholars.tritonfoodpantry.AdminMenuActivity">
 
+
     <Button
         android:id="@+id/button_toAdminInventory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Inventory"/>
+
 
     <Button
         android:id="@+id/button_addAdmin"
