@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     protected static String user_uid;
 
     // our SharedPreferences will save our settings like user uid (which indicates if admin or not)
-    public static final String PREFS_NAME = "DejaPhotoPreferences";
+    public static final String PREFS_NAME = "FoodPantryPreferences";
     protected static SharedPreferences settings;
     private static SharedPreferences.Editor settingsEditor;
 
@@ -71,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
                     // if user has never signed in, we set user uid and check if newly signed in user is admin
                     if(!userPreviouslySignedIn()) {
                         checkIfAdmin(user.getUid());
-                        goToHomeActivity();
                     }
+                    goToHomeActivity();
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
