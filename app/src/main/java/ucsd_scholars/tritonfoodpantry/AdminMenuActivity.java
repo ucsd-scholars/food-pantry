@@ -57,8 +57,8 @@ public class AdminMenuActivity extends AppCompatActivity implements View.OnClick
                 break;
 
             case R.id.button_editHomePage:
-               // intent = new Intent(this, NotificationActivity.class);
-               // startActivity(intent);
+                intent = new Intent(this, NewStoryActivity.class);
+                startActivity(intent);
                 break;
         }
     }

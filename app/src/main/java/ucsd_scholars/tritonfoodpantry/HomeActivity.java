@@ -18,6 +18,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,
                                                     HomeFragment.OnFragmentInteractionListener,
@@ -36,7 +37,6 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
         // [START config_signin]
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -50,6 +50,9 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
+        // for user to receive notifications
+        FirebaseMessaging.getInstance().subscribeToTopic("news");
+
         fragmentManager = getSupportFragmentManager();
         fragment = new HomeFragment();
         final FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -58,6 +61,18 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
+        // if we received intent from NewStoryActivity to add a new story to home page
+        Bundle bundle = new Bundle();
+        bundle = getIntent().getExtras();
+
+        if(getIntent().getAction() == NewStoryActivity.ACTION_ADD_STORY) {
+            String eventText = bundle.getString(HomeFragment.STORY_TITLE_AND_DETAILS);
+            bundle.putString(HomeFragment.STORY_TITLE_AND_DETAILS, eventText);
+            Log.d("HomeActivity", eventText);
+            fragment = new HomeFragment();
+            fragment.setArguments(bundle);
+        }
     }
 
     @Override
@@ -65,7 +80,19 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         @StringRes int text;
         switch (item.getItemId()) {
             case R.id.menu_home:
-                fragment = new HomeFragment();
+                if(getIntent().getAction() == NewStoryActivity.ACTION_ADD_STORY) {
+                    // if we received intent from NewStoryActivity to add a new story to home page
+                    Bundle bundle = new Bundle();
+                    bundle = getIntent().getExtras();
+                    String eventText = bundle.getString(HomeFragment.STORY_TITLE_AND_DETAILS);
+                    bundle.putString(HomeFragment.STORY_TITLE_AND_DETAILS, eventText);
+                    Log.d("HomeActivity", eventText);
+                    fragment = new HomeFragment();
+                    fragment.setArguments(bundle);
+                }
+                else{
+                    fragment = new HomeFragment();
+                }
                 break;
             case R.id.menu_calendar:
                 fragment = new CalendarFragment();

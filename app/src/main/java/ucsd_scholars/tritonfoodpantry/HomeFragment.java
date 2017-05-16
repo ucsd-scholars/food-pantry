@@ -4,9 +4,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 
 /**
@@ -20,12 +25,16 @@ import android.view.ViewGroup;
 public class HomeFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+   static final String STORY_TITLE_AND_DETAILS = "param1";
+
+    private static final int STORY_TEXT_SIZE = 40;
+
+    private ScrollView scroll;
+    private LinearLayout ll;
+    LinearLayout.LayoutParams layoutParams;
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String storyText;
 
     private OnFragmentInteractionListener mListener;
 
@@ -37,26 +46,27 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param text the event title and details
      * @return A new instance of fragment HomeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
+    public static HomeFragment newHomeFragment(String text) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(STORY_TITLE_AND_DETAILS, text);
         fragment.setArguments(args);
         return fragment;
     }
 
+    // if our HomeFragment was given a bundle, we add new story to home page with "storyText"
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
+        if(savedInstanceState != null && savedInstanceState.getString(STORY_TITLE_AND_DETAILS) != null){
+            storyText = savedInstanceState.getString(STORY_TITLE_AND_DETAILS);
+            Log.d("HomeFragment", storyText);
+            addNewStory(storyText);
         }
     }
 
@@ -64,7 +74,34 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view =  inflater.inflate(R.layout.fragment_home,
+                container, false);
+
+        // the linear layout ll is the layout in which we want to add scrolling events/stories
+        scroll = (ScrollView) view.findViewById(R.id.home_scroll);
+        ll = (LinearLayout) scroll.findViewById(R.id.home_news_feed);
+        layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+
+        // this function adds events/stories to our scrolling home page
+        // addNewStory("This is a news story");
+        if(getArguments() != null && getArguments().getString(STORY_TITLE_AND_DETAILS) != null){
+            storyText = getArguments().getString(STORY_TITLE_AND_DETAILS);
+            Log.d("HomeFragment", "got the story text from bundle!!!" + storyText);
+            addNewStory(storyText);
+        }
+
+        return view;
+    }
+
+    // this function adds events/stories to our scrolling home page
+    private void addNewStory(String string) {
+        // creates a new textView that will be placed in our scrolling linear layout
+        TextView tv = new TextView(getActivity());
+        tv.setText(string);
+        tv.setLayoutParams(layoutParams);
+        tv.setTextSize(STORY_TEXT_SIZE);
+        tv.setPadding(0,0,0,5);
+        ll.addView(tv);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
