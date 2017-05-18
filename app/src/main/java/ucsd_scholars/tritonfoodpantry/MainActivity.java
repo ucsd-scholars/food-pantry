@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected static firebaseWrapper db;
 
     // used for facebook login button
-    private CallbackManager callbackManager;
+    protected static CallbackManager callbackManager;
 
     private static final String TAG = "MainActivity";
 
@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String PREFS_NAME = "FoodPantryPreferences";
     protected static SharedPreferences settings;
     protected static SharedPreferences.Editor settingsEditor;
+
+    protected static boolean signedInWithFacebook = false;
 
 
     @Override
@@ -96,7 +98,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                signedInWithFacebook = true;
                 handleFacebookAccessToken(loginResult.getAccessToken());
+                //goToHomeActivity();
             }
 
             @Override

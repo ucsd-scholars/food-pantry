@@ -81,6 +81,8 @@ public class GoogleSignInActivity extends FragmentActivity implements
         // [START initialize_auth]
         //mAuth = FirebaseAuth.getInstance();
         // [END initialize_auth]
+
+        signIn();
     }
 
     // [START on_start_check_user]

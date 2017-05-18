@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
@@ -97,9 +98,9 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
         button_volunteer = (Button) view.findViewById(R.id.button_toVolunteer);
         button_contact = (Button) view.findViewById(R.id.button_toContact);
 
-        button_sign_out.setOnClickListener(this);
         button_volunteer.setOnClickListener(this);
         button_contact.setOnClickListener(this);
+        button_sign_out.setOnClickListener(this);
 
         // gives admins permissions like notification ability, hides its otherwise
         if(isAdmin){
@@ -175,9 +176,7 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
                 break;
             case R.id.button_SignOut:
                 signOutDialog();
-                //mAuth.signOut();
                 break;
-
         }
     }
 
@@ -226,7 +225,7 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
                 });
 
         // Facebook sign out
-
+        LoginManager.getInstance().logOut();
     }
 
     // when user signs out, we return to main screen
