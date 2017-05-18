@@ -53,7 +53,7 @@ public class NotificationActivity extends AppCompatActivity {
             return;
         }
 
-        notificationBuilder.setSmallIcon(R.drawable.home);
+        notificationBuilder.setSmallIcon(R.drawable.profile);
         notificationBuilder.setContentTitle(messageTitle.getText().toString());
         notificationBuilder.setContentText(messageText.getText().toString());
 

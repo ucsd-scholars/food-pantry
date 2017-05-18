@@ -39,8 +39,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
+import static ucsd_scholars.tritonfoodpantry.MainActivity.db;
 import static ucsd_scholars.tritonfoodpantry.MainActivity.mAuth;
 import static ucsd_scholars.tritonfoodpantry.MainActivity.mAuthListener;
+import static ucsd_scholars.tritonfoodpantry.MainActivity.settingsEditor;
+import static ucsd_scholars.tritonfoodpantry.firebaseWrapper.adminEmails;
 
 /**
  * A login screen that offers login via email/password.
@@ -397,7 +400,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+
+                            // after signing in, we check if user is an admin; if so, we save the pref to be true
+                            if(adminEmails.toLowerCase().contains(user.getEmail().toLowerCase())){
+                                MainActivity.settingsEditor.putBoolean("isAdmin", true);
+                                settingsEditor.commit();
+                                Toast.makeText(LoginActivity.this, "you are an admin!",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                Toast.makeText(LoginActivity.this, "not admin",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                            // adds our user email to database
+                            db.writeToEmailList(user.getEmail().toLowerCase());
                             goToHomeActivity();
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());

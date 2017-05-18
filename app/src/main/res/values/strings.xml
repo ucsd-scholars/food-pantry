@@ -156,9 +156,10 @@
     <!-- this string will be our admin_uid on firebase, so when user signs in with this uid -->
     <!-- (presumably the one main foodpantry gmail account), then we will sign them in checking for this uid -->
     <string name="admin_uid">czw9GL4bcTP0Qrc7Uga2uE9G9um1</string>
+    <string name="admin_email">testadmin@example.com</string>
 
-    <string name="link"><a href="http://google.com/">Link to Website</a></string>
-    <string name="email_text">Food Pantry\'s Email</string>
-    <string name="phone_number"><a href="tel:8183217393">###-###-####</a></string>
+    <string name="link"><a href="https://www.facebook.com/tritonfoodpantry/">Facebook Page</a></string>
+    <string name="email_text">foodpantry@ucsd.edu</string>
+    <string name="phone_number"><a href="tel:8585345694">(858)534-5694</a></string>
 
 </resources>

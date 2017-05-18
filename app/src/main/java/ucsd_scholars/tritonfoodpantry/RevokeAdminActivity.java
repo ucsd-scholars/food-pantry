@@ -1,10 +1,14 @@
 package ucsd_scholars.tritonfoodpantry;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import static ucsd_scholars.tritonfoodpantry.MainActivity.db;
+import static ucsd_scholars.tritonfoodpantry.firebaseWrapper.adminEmails;
 
 public class RevokeAdminActivity extends AppCompatActivity {
 
@@ -39,6 +43,26 @@ public class RevokeAdminActivity extends AppCompatActivity {
         //send recipient an email?
 
         //else toast invalid
+        // if valid user email, we write the email to our database of admin emails
 
+        if(user.getText().toString().isEmpty()){
+            Toast.makeText(getApplicationContext(), "Please enter a valid user email", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            revokeAdminStatus(user.getText().toString());
+        }
+    }
+
+    // checks if email exists, returns true if so
+    private void revokeAdminStatus(String email){
+        // tells user that admin exists, if so we remove
+        if(adminEmails.toLowerCase().contains(email.toLowerCase())){
+            adminEmails = adminEmails.replace(email, "");
+            db.writeToRevokedAdminList(adminEmails);
+            Toast.makeText(getApplicationContext(), "User's admin status removed", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Admin doesn't exist", Toast.LENGTH_SHORT).show();
+        }
     }
 }

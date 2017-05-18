@@ -16,10 +16,12 @@ public class firebaseWrapper {
 
     static FirebaseDatabase database;
     private static final String TAG = "firebaseWrapper";
+    protected static String adminEmails;
+    protected static String userEmails;
+    protected String currEmail;
 
     public firebaseWrapper(){
         database = FirebaseDatabase.getInstance();
-
     }
 
     public void addMessage(String msg){
@@ -47,9 +49,84 @@ public class firebaseWrapper {
         });
     }
 
+    public void readAdminList(){
+        DatabaseReference adminList = database.getReference("admin_emails");
+        // Read from the database
+        adminList.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Log.i(TAG, "Value is: " + value);
+                adminEmails = value;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+                adminEmails = "";
+            }
+        });
+    }
+
+    public void readUserList(){
+        DatabaseReference userList = database.getReference("user_emails");
+        // Read from the database
+        userList.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Log.i(TAG, "Value is: " + value);
+                userEmails = value;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+                userEmails = "";
+            }
+        });
+    }
+
     public void writeData(Object data){
         DatabaseReference Data = database.getReference("Data");
         Data.setValue(data.toString());
     }
 
+    // writes to the database by appending new email to list of admin_emails
+    public void writeToAdminList(String email){
+        // we don't add admin email again if already in database
+        if(adminEmails != null && adminEmails.toLowerCase().contains(email.toLowerCase())){
+            return;
+        }
+
+        DatabaseReference ref = database.getReference("admin_emails");
+        ref.setValue(adminEmails + " " + email);
+    }
+
+    // we use this method when we revoke an admin
+    public void writeToRevokedAdminList(String email){
+        DatabaseReference ref = database.getReference("admin_emails");
+        ref.setValue(adminEmails);
+    }
+
+    // writes to the database by appending new email to list of user emails
+    public void writeToEmailList(String email){
+        // we don't add new user email again if already in database
+        if(userEmails != null && userEmails.toLowerCase().contains(email.toLowerCase())){
+            return;
+        }
+
+        DatabaseReference ref = database.getReference("user_emails");
+        ref.setValue(userEmails + " " + email);
+    }
+
+    public void setCurrEmail(String email){
+        currEmail = email;
+    }
 }

@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     //firebase authentication and listener
     protected static FirebaseAuth mAuth;
     protected static FirebaseAuth.AuthStateListener mAuthListener;
+    protected static FirebaseDatabaseReferenceWrapper databaseWrapper;
+    protected static firebaseWrapper db;
 
     // used for facebook login button
     private CallbackManager callbackManager;
@@ -36,20 +38,28 @@ public class MainActivity extends AppCompatActivity {
 
     // user's uid which we will store here
     protected static String user_uid;
+    protected static String user_email;
 
     // our SharedPreferences will save our settings like user uid (which indicates if admin or not)
     public static final String PREFS_NAME = "FoodPantryPreferences";
     protected static SharedPreferences settings;
-    private static SharedPreferences.Editor settingsEditor;
+    protected static SharedPreferences.Editor settingsEditor;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        firebaseWrapper db = new firebaseWrapper();
+        db = new firebaseWrapper();
         db.addMessage("Database!");
         db.readMsg();
+
+        // these 2 reads from database will initialize our strings of all admin and client emails
+        db.readAdminList();
+        db.readUserList();
+
+        // our reference to the database used to read/write
+        databaseWrapper = new FirebaseDatabaseReferenceWrapper();
 
         // if we decided to exit from the login screen, then this will close the app
         if (getIntent().getBooleanExtra("EXIT", false))
@@ -68,10 +78,6 @@ public class MainActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    // if user has never signed in, we set user uid and check if newly signed in user is admin
-                    if(!userPreviouslySignedIn()) {
-                        checkIfAdmin(user.getUid());
-                    }
                     goToHomeActivity();
                 } else {
                     // User is signed out
@@ -182,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    // we check app's SharedPrefs to check if uid matches our stored admin uid
+    /*// we check app's SharedPrefs to check if uid matches our stored admin uid
     private void checkIfAdmin(String user_uid){
         settingsEditor.putString("user_uid", user_uid);
         if(user_uid.equals(getString(R.string.admin_uid))){
@@ -194,21 +200,52 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "ClIENT user uid: " + user_uid, Toast.LENGTH_SHORT).show();
         }
         settingsEditor.commit();
-    }
+    }*/
+
+    // we check app's SharedPrefs to check if email matches our stored admin email
+    /*private void checkIfAdmin(String user_email){
+        settingsEditor.putString("user_email", user_email);
+        if(user_email.equals(getString(R.string.admin_email))){
+            settingsEditor.putBoolean("isAdmin", true);
+            Toast.makeText(this, "ADMIN user email: " + user_email, Toast.LENGTH_SHORT).show();
+            db.writeToAdminList(user_email);
+        }
+        else {
+            settingsEditor.putBoolean("isAdmin", false);
+            Toast.makeText(this, "ClIENT user email: " + user_email, Toast.LENGTH_SHORT).show();
+        }
+        settingsEditor.commit();
+    }*/
 
     // we check app's SharedPrefs to check if uid is set; if not then user has never signed in
     private boolean userPreviouslySignedIn(){
-        String current_uid = settings.getString("user_uid", null);
+        /*String current_uid = settings.getString("user_uid", null);
         if (current_uid == null) {
             return false;
+        }*/
+        /*String current_email = settings.getString("user_email", null);
+        if (current_email == null) {
+            return false;
+        }*/
+        if(settings.getBoolean("alreadySignedIn", false)){
+            return true;
         }
-        return true;
+        return false;
     }
 
     // used to reset uid pref and admin status if user signs out
     protected static void clear_uid_pref(){
         settingsEditor.remove("user_uid");
+        settingsEditor.remove("user_email");
         settingsEditor.putBoolean("isAdmin", false);
         settingsEditor.commit();
+    }
+
+    // saves isAdmin pref to be true
+    private void grantAdminStatus(){
+            settingsEditor.putBoolean("isAdmin", true);
+            Toast.makeText(this, "ADMIN user email: " + user_email, Toast.LENGTH_SHORT).show();
+            db.writeToAdminList(user_email);
+            settingsEditor.commit();
     }
 }

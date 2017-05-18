@@ -20,6 +20,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import static ucsd_scholars.tritonfoodpantry.MainActivity.db;
+import static ucsd_scholars.tritonfoodpantry.MainActivity.mAuth;
+
 public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,
                                                     HomeFragment.OnFragmentInteractionListener,
                                                     CalendarFragment.OnFragmentInteractionListener,
@@ -36,6 +39,11 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        // adds current user to email database
+        if(firebaseWrapper.userEmails != null){
+            db.writeToEmailList(mAuth.getCurrentUser().getEmail().toLowerCase());
+        }
 
         // [START config_signin]
         // Configure Google Sign In
