@@ -14,6 +14,11 @@ import android.widget.Toast;
 
 public class NotificationActivity extends AppCompatActivity {
 
+    // this sender_id is our unique firebase id for sending notifications to users
+    private static final String SENDER_ID = "778703925901";
+    // server key used for sending messages to server
+    private static final String LEGACY_SERVER_KEY = "AIzaSyB2Xh2wEtqgDWYQKDzmXruUuSggGe1Z6Y0";
+
     private EditText messageTitle;
     private EditText messageText;
     Button btn;
@@ -52,6 +57,8 @@ public class NotificationActivity extends AppCompatActivity {
         notificationBuilder.setContentTitle(messageTitle.getText().toString());
         notificationBuilder.setContentText(messageText.getText().toString());
 
+        // sendFirebaseNotification(messageTitle.getText().toString(), messageText.getText().toString());
+        //sendPushToSingleInstance(this, dataVal, FirebaseInstanceId.getInstance().getToken());
 
         // cute little idiom
         Intent notificationIntent = new Intent(this, HomeActivity.class);
@@ -64,5 +71,4 @@ public class NotificationActivity extends AppCompatActivity {
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, notificationBuilder.build());
     }
-
 }
