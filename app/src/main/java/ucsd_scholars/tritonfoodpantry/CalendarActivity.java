@@ -84,8 +84,8 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
         setContentView(R.layout.activity_calendar);
         datePicker = (DatePicker) findViewById(R.id.datePicker);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        // BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        // navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         calendar = Calendar.getInstance();
         mCredential = GoogleAccountCredential.usingOAuth2(
