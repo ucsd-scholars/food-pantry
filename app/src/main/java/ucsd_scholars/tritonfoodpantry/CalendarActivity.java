@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -39,6 +40,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -105,7 +107,7 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
 
             @Override
             public void onClick(View arg0) {
-                //getResultsFromApi(new DateTime());
+                //getResultsFromApi(time);
                 //Intent intent = new Intent(CalendarActivity.this, MainActivity.class);
                 //startActivity(intent);
             }
@@ -118,8 +120,10 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
             public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
                 Calendar temp = calendar.getInstance();
                 temp.set(i, i1, i2);
+                time = new DateTime(new Date(temp.get(Calendar.YEAR)-1900, temp.get(Calendar.MONTH), temp.get(Calendar.DAY_OF_MONTH)));
+
+                Log.e("CalendarActivity", "onDateChanged: "+time);
                 //addEvent("Opening", "Triton Food Pantry", temp.getTimeInMillis(), temp.getTimeInMillis()+(1000*60*60));
-                time = new DateTime(temp.getTimeInMillis());
                 getResultsFromApi(time);
 
             }
@@ -329,10 +333,16 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
         private List<String> getDataFromApi() throws IOException {
             // List the next 10 events from the primary calendar.
             DateTime now = time;
+            Calendar future = Calendar.getInstance();
+            future.setTime(new Date(time.getValue()));
+            future.add(Calendar.DATE, 1);
+            DateTime tomorrow = new DateTime(future.getTime());
+
             List<String> eventStrings = new ArrayList<String>();
             Events events = mService.events().list("primary")
-                    .setMaxResults(10)
+                    //.setMaxResults(10)
                     .setTimeMin(now)
+                    .setTimeMax(tomorrow)
                     .setOrderBy("startTime")
                     .setSingleEvents(true)
                     .execute();
@@ -359,7 +369,7 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
 
         @Override
         protected void onPostExecute(List<String> output) {
-            if (output == null || output.size() == 0) {
+            if (output == null) {
             } else {
                 output.add(0, "Data retrieved using the Google Calendar API:");
                 button.setText(TextUtils.join("\n", output));
