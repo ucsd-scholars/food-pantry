@@ -58,6 +58,7 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
     private DatePicker datePicker;
     private Calendar calendar;
     private Button button;
+    private DateTime time;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -92,7 +93,7 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
                 .setBackOff(new ExponentialBackOff());
 
 
-
+        time = new DateTime(System.currentTimeMillis());
         addCalendarListener();
         addListenerOnButton();
     }
@@ -104,7 +105,7 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
 
             @Override
             public void onClick(View arg0) {
-                getResultsFromApi();
+                //getResultsFromApi(new DateTime());
                 //Intent intent = new Intent(CalendarActivity.this, MainActivity.class);
                 //startActivity(intent);
             }
@@ -117,7 +118,9 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
             public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
                 Calendar temp = calendar.getInstance();
                 temp.set(i, i1, i2);
-                addEvent("Opening", "Triton Food Pantry", temp.getTimeInMillis(), temp.getTimeInMillis()+(1000*60*60));
+                //addEvent("Opening", "Triton Food Pantry", temp.getTimeInMillis(), temp.getTimeInMillis()+(1000*60*60));
+                time = new DateTime(temp.getTimeInMillis());
+                getResultsFromApi(time);
 
             }
         });
@@ -141,16 +144,17 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
      * account was selected and the device currently has online access. If any
      * of the preconditions are not satisfied, the app will prompt the user as
      * appropriate.
+     * @param dateTime
      */
-    private void getResultsFromApi() {
+    private void getResultsFromApi(DateTime dateTime) {
         if (! isGooglePlayServicesAvailable()) {
             acquireGooglePlayServices();
         } else if (mCredential.getSelectedAccountName() == null) {
             chooseAccount();
         } else if (! isDeviceOnline()) {
-            //mOutputText.setText("No network connection available.");
+            button.setText("No network connection available.");
         } else {
-            new MakeRequestTask(mCredential).execute();
+            new MakeRequestTask(mCredential, dateTime).execute();
         }
     }
     @AfterPermissionGranted(REQUEST_PERMISSION_GET_ACCOUNTS)
@@ -161,7 +165,7 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
                     .getString(PREF_ACCOUNT_NAME, null);
             if (accountName != null) {
                 mCredential.setSelectedAccountName(accountName);
-                getResultsFromApi();
+                getResultsFromApi(time);
             } else {
                 // Start a dialog from which the user can choose an account
                 startActivityForResult(
@@ -197,7 +201,7 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
                 if (resultCode != RESULT_OK) {
 
                 } else {
-                    getResultsFromApi();
+                    getResultsFromApi(time);
                 }
                 break;
             case REQUEST_ACCOUNT_PICKER:
@@ -212,13 +216,13 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
                         editor.putString(PREF_ACCOUNT_NAME, accountName);
                         editor.apply();
                         mCredential.setSelectedAccountName(accountName);
-                        getResultsFromApi();
+                        getResultsFromApi(time);
                     }
                 }
                 break;
             case REQUEST_AUTHORIZATION:
                 if (resultCode == RESULT_OK) {
-                    getResultsFromApi();
+                    getResultsFromApi(time);
                 }
                 break;
         }
@@ -282,6 +286,7 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
     public void onPermissionsDenied(int requestCode, List<String> list) {
         // Do nothing.
     }
+
     /**
      * An asynchronous task that handles the Google Calendar API call.
      * Placing the API calls in their own task ensures the UI stays responsive.
@@ -289,10 +294,12 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
     private class MakeRequestTask extends AsyncTask<Void, Void, List<String>> {
         private com.google.api.services.calendar.Calendar mService = null;
         private Exception mLastError = null;
+        private DateTime time;
 
-        MakeRequestTask(GoogleAccountCredential credential) {
+        MakeRequestTask(GoogleAccountCredential credential, DateTime time) {
             HttpTransport transport = AndroidHttp.newCompatibleTransport();
             JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
+            this.time = time;
             mService = new com.google.api.services.calendar.Calendar.Builder(
                     transport, jsonFactory, credential)
                     .setApplicationName("Google Calendar API Android Quickstart")
@@ -321,7 +328,7 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
          */
         private List<String> getDataFromApi() throws IOException {
             // List the next 10 events from the primary calendar.
-            DateTime now = new DateTime(System.currentTimeMillis());
+            DateTime now = time;
             List<String> eventStrings = new ArrayList<String>();
             Events events = mService.events().list("primary")
                     .setMaxResults(10)
@@ -333,13 +340,14 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
 
             for (Event event : items) {
                 DateTime start = event.getStart().getDateTime();
+                DateTime end = event.getEnd().getDateTime();
                 if (start == null) {
                     // All-day events don't have start times, so just use
                     // the start date.
                     start = event.getStart().getDate();
                 }
                 eventStrings.add(
-                        String.format("%s (%s)", event.getSummary(), start));
+                        String.format("%s (%s) to (%s)", event.getSummary(), start.toString(), end.toString()));
             }
             return eventStrings;
         }
@@ -373,7 +381,4 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
             }
         }
     }
-
-
-
 }
