@@ -66,7 +66,7 @@ public class firebaseWrapper {
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
                 Log.w(TAG, "Failed to read value.", error.toException());
-                adminEmails = "";
+                //adminEmails = "";
             }
         });
     }
@@ -88,7 +88,7 @@ public class firebaseWrapper {
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
                 Log.w(TAG, "Failed to read value.", error.toException());
-                userEmails = "";
+                //userEmails = "";
             }
         });
     }
@@ -100,6 +100,11 @@ public class firebaseWrapper {
 
     // writes to the database by appending new email to list of admin_emails
     public void writeToAdminList(String email){
+        // null check
+        if(adminEmails == null){
+            return;
+        }
+
         // we don't add admin email again if already in database
         if(adminEmails != null && adminEmails.toLowerCase().contains(email.toLowerCase())){
             return;
@@ -111,12 +116,22 @@ public class firebaseWrapper {
 
     // we use this method when we revoke an admin
     public void writeToRevokedAdminList(String email){
+        // null check
+        if(adminEmails == null){
+            return;
+        }
+
         DatabaseReference ref = database.getReference("admin_emails");
         ref.setValue(adminEmails);
     }
 
     // writes to the database by appending new email to list of user emails
     public void writeToEmailList(String email){
+        // null check
+        if(userEmails == null){
+            return;
+        }
+
         // we don't add new user email again if already in database
         if(userEmails != null && userEmails.toLowerCase().contains(email.toLowerCase())){
             return;
