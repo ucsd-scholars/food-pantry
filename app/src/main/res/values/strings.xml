@@ -162,4 +162,6 @@
     <string name="email_text">foodpantry@ucsd.edu</string>
     <string name="phone_number"><a href="tel:8585345694">(858)534-5694</a></string>
 
+    <string name="legacy_server_key">AIzaSyB2Xh2wEtqgDWYQKDzmXruUuSggGe1Z6Y0</string>
+
 </resources>

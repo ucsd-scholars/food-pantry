@@ -42,8 +42,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 import static ucsd_scholars.tritonfoodpantry.MainActivity.db;
 import static ucsd_scholars.tritonfoodpantry.MainActivity.mAuth;
 import static ucsd_scholars.tritonfoodpantry.MainActivity.mAuthListener;
-import static ucsd_scholars.tritonfoodpantry.MainActivity.settingsEditor;
-import static ucsd_scholars.tritonfoodpantry.firebaseWrapper.adminEmails;
+import static ucsd_scholars.tritonfoodpantry.MainActivity.settings;
 
 /**
  * A login screen that offers login via email/password.
@@ -384,6 +383,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     // this method goes to home if login succeeds
     private void goToHomeActivity() {
+        // after signing in, we check if user is an admin; if so, we save the pref to be true
+        db.checkAdminList();
+        if(settings.getBoolean("isAdmin", false)){
+            Toast.makeText(LoginActivity.this, "you are an admin!",
+                    Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(LoginActivity.this, "not admin",
+                                        Toast.LENGTH_SHORT).show();
+        }
+        // adds our user email to database
+        //db.writeToEmailList(user.getEmail().toLowerCase());
         finish();
         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         startActivity(intent);
@@ -401,7 +412,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            // after signing in, we check if user is an admin; if so, we save the pref to be true
+                            /*// after signing in, we check if user is an admin; if so, we save the pref to be true
                             if(adminEmails.toLowerCase().contains(user.getEmail().toLowerCase())){
                                 MainActivity.settingsEditor.putBoolean("isAdmin", true);
                                 settingsEditor.commit();
@@ -413,7 +424,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                         Toast.LENGTH_SHORT).show();
                             }
                             // adds our user email to database
-                            db.writeToEmailList(user.getEmail().toLowerCase());
+                            db.writeToEmailList(user.getEmail().toLowerCase());*/
                             goToHomeActivity();
 
                         } else {

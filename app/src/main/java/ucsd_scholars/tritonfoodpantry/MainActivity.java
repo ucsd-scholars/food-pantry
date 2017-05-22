@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
         db.readMsg();
 
         // these 2 reads from database will initialize our strings of all admin and client emails
-        db.readAdminList();
-        db.readUserList();
+       // db.readAdminList();
+       //gi db.readUserList();
 
         // our reference to the database used to read/write
         databaseWrapper = new FirebaseDatabaseReferenceWrapper();
@@ -151,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
     // this method goes to home if user is already logged in
     private void goToHomeActivity() {
+        db.checkAdminList();
         finish();
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);

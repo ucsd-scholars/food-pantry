@@ -1,0 +1,23 @@
+{
+  "name": "foodpantry",
+  "version": "1.0.0",
+  "description": "foodpantryapp",
+  "main": "index.js",
+  "dependencies": {
+    "request": "^2.81.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ucsd-scholars/food-pantry.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ucsd-scholars/food-pantry/issues"
+  },
+  "homepage": "https://github.com/ucsd-scholars/food-pantry#readme"
+}
