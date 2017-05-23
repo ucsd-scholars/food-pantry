@@ -17,9 +17,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -37,6 +36,8 @@ import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.Events;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -59,7 +60,7 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
 
     private DatePicker datePicker;
     private Calendar calendar;
-    private Button button;
+    private TextView view;
     private DateTime time;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -95,23 +96,19 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
                 .setBackOff(new ExponentialBackOff());
 
 
-        time = new DateTime(System.currentTimeMillis());
+        Calendar temp = Calendar.getInstance();
+        temp.set(Calendar.HOUR_OF_DAY, 0);
+        temp.set(Calendar.MINUTE, 0);
+        temp.set(Calendar.SECOND, 0);
+        temp.set(Calendar.MILLISECOND, 0);
+        time = new DateTime(temp.getTime());
         addCalendarListener();
-        addListenerOnButton();
+        addListenerOnView();
     }
 
-    public void addListenerOnButton() {
+    public void addListenerOnView() {
         final Context context = this;
-        button = (Button) findViewById(R.id.button2);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                //getResultsFromApi(time);
-                //Intent intent = new Intent(CalendarActivity.this, MainActivity.class);
-                //startActivity(intent);
-            }
-        });
+        view = (TextView) findViewById(R.id.view);
     }
 
     void addCalendarListener(){
@@ -120,7 +117,12 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
             public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
                 Calendar temp = calendar.getInstance();
                 temp.set(i, i1, i2);
-                time = new DateTime(new Date(temp.get(Calendar.YEAR)-1900, temp.get(Calendar.MONTH), temp.get(Calendar.DAY_OF_MONTH)));
+                temp.set(Calendar.HOUR_OF_DAY, 0);
+                temp.set(Calendar.MINUTE, 0);
+                temp.set(Calendar.SECOND, 0);
+                temp.set(Calendar.MILLISECOND, 0);
+                time = new DateTime(temp.getTime());
+                //time = new DateTime(new Date(temp.get(Calendar.YEAR)-1900, temp.get(Calendar.MONTH), temp.get(Calendar.DAY_OF_MONTH)));
 
                 Log.e("CalendarActivity", "onDateChanged: "+time);
                 //addEvent("Opening", "Triton Food Pantry", temp.getTimeInMillis(), temp.getTimeInMillis()+(1000*60*60));
@@ -128,6 +130,7 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
 
             }
         });
+        getResultsFromApi(time);
     }
 
     public void addEvent(String title, String location, long begin, long end) {
@@ -156,7 +159,7 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
         } else if (mCredential.getSelectedAccountName() == null) {
             chooseAccount();
         } else if (! isDeviceOnline()) {
-            button.setText("No network connection available.");
+            view.setText("No network connection available.");
         } else {
             new MakeRequestTask(mCredential, dateTime).execute();
         }
@@ -333,10 +336,10 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
         private List<String> getDataFromApi() throws IOException {
             // List the next 10 events from the primary calendar.
             DateTime now = time;
-            Calendar future = Calendar.getInstance();
-            future.setTime(new Date(time.getValue()));
-            future.add(Calendar.DATE, 1);
-            DateTime tomorrow = new DateTime(future.getTime());
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(new Date(time.getValue()));
+            cal.add(Calendar.DATE, 1);
+            DateTime tomorrow = new DateTime(cal.getTime());
 
             List<String> eventStrings = new ArrayList<String>();
             Events events = mService.events().list("primary")
@@ -356,8 +359,13 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
                     // the start date.
                     start = event.getStart().getDate();
                 }
+                DateFormat sdf = new SimpleDateFormat("hh:mma");
+                Date begin = new Date(start.getValue());
+                Date finish = new Date(end.getValue());
                 eventStrings.add(
-                        String.format("%s (%s) to (%s)", event.getSummary(), start.toString(), end.toString()));
+                        String.format( "%s\n %s - %s\n", event.getSummary(), sdf.format(begin), sdf.format(finish))
+                );
+
             }
             return eventStrings;
         }
@@ -371,8 +379,9 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
         protected void onPostExecute(List<String> output) {
             if (output == null) {
             } else {
-                output.add(0, "Data retrieved using the Google Calendar API:");
-                button.setText(TextUtils.join("\n", output));
+                //output.add(0, "Data retrieved using the Google Calendar API:");
+                view.setText(TextUtils.join("\n", output));
+
             }
         }
 

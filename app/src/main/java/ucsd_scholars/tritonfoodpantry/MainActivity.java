@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     public void addListenerOnButton() {
         final Context context = this;
         button = (Button) findViewById(R.id.button1);
