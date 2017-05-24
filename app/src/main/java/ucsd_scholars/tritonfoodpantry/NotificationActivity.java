@@ -108,13 +108,15 @@ public class NotificationActivity extends AppCompatActivity {
             objData.put("sound", "default");
             objData.put("icon", "icon_name"); //   icon_name image must be there in drawable
             objData.put("tag", token);
+            objData.put("to","/topics/news");
             objData.put("priority", "high");
 
             dataobjData = new JSONObject();
             dataobjData.put("text", msg);
             dataobjData.put("title", title);
 
-            obj.put("to", token);
+            //obj.put("to", token);
+            obj.put("to","/topics/news");
             //obj.put("priority", "high");
 
             obj.put("notification", objData);
