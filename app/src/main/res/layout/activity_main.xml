@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
@@ -8,60 +8,67 @@
               android:gravity="center"
               tools:context="ucsd_scholars.tritonfoodpantry.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title"
-        android:textSize="50dp"
-        android:gravity="center"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="50dp"
-        android:id="@+id/textView2" />
+        <ImageView
+            android:id="@+id/logo"
+            android:src="@drawable/profile_white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Login"
-        android:textSize="25dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:id="@+id/linearLayout"
+            android:layout_marginBottom="13dp"
+            android:layout_above="@+id/button_Google"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal" >
+            <Button
+                android:id="@+id/button_signUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onClickSignUp"
+                android:text="Sign Up" />
 
-        <Button
-            android:id="@+id/button_signUp"
+            <Button
+                android:id="@+id/button_signIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onClickLogin"
+                android:text="Sign In" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/button_Google"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onClickSignUp"
-            android:text="Sign Up" />
+            android:onClick="onClickGoogle"
+            android:src="@drawable/google_48"
+            android:text="Google"
+            android:layout_above="@+id/button_facebook"
+            android:layout_centerHorizontal="true" />
 
-        <Button
-            android:id="@+id/button_signIn"
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/title"
+            android:textSize="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <com.facebook.login.widget.LoginButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onClickLogin"
-            android:text="Sign In" />
-    </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/button_Google"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClickGoogle"
-        android:src="@drawable/google_48"
-        android:text="Google" />
-
-    <com.facebook.login.widget.LoginButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_facebook" />
-
-
-</LinearLayout>
+            android:id="@+id/button_facebook"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+    
+</>
