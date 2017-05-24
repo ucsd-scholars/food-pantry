@@ -11,6 +11,7 @@ public class AdminMenuActivity extends AppCompatActivity implements View.OnClick
     private Button button_addAdmin;
     private Button button_revokeAdmin;
     private Button button_toNotificationActivity;
+    private Button button_editHomePage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,8 @@ public class AdminMenuActivity extends AppCompatActivity implements View.OnClick
         button_addAdmin.setOnClickListener(this);
         button_revokeAdmin = (Button)findViewById(R.id.button_revokeAdmin);
         button_revokeAdmin.setOnClickListener(this);
+        button_editHomePage = (Button)findViewById(R.id.button_editHomePage);
+        button_editHomePage.setOnClickListener(this);
     }
 
     @Override
@@ -41,6 +44,11 @@ public class AdminMenuActivity extends AppCompatActivity implements View.OnClick
 
             case R.id.button_toNotificationActivity:
                 intent = new Intent(this, NotificationActivity.class);
+                startActivity(intent);
+                break;
+
+            case R.id.button_editHomePage:
+                intent = new Intent(this, NewStoryActivity.class);
                 startActivity(intent);
                 break;
         }

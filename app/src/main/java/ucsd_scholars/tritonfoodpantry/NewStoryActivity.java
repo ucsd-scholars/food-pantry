@@ -1,12 +1,13 @@
 package ucsd_scholars.tritonfoodpantry;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import static ucsd_scholars.tritonfoodpantry.MainActivity.db;
 
 public class NewStoryActivity extends AppCompatActivity {
 
@@ -47,10 +48,17 @@ public class NewStoryActivity extends AppCompatActivity {
             return;
         }
 
+        // add the story to the database
+        db.writeToStories(eventTitleText, eventDetailsText);
+
+        Toast.makeText(getApplicationContext(), "Story added!", Toast.LENGTH_SHORT).show();
+
+        finish();
+
         // we send the inputted event title and details to the home page so that the home page can show it
-        Intent intent=new Intent(NewStoryActivity.this, HomeActivity.class);
+        /*Intent intent=new Intent(NewStoryActivity.this, HomeActivity.class);
         intent.putExtra(HomeFragment.STORY_TITLE_AND_DETAILS, eventTitleText + " " + eventDetailsText);
         intent.setAction(ACTION_ADD_STORY);
-        startActivity(intent);
+        startActivity(intent);*/
     }
 }

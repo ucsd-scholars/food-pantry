@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,13 +26,21 @@ import android.widget.TextView;
 public class HomeFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-   static final String STORY_TITLE_AND_DETAILS = "param1";
+    static final String STORY_TITLE_AND_DETAILS = "param1";
 
-    private static final int STORY_TEXT_SIZE = 40;
+    private static final int STORY_TITLE_SIZE = 30;
+    private static final int STORY_BODY_SIZE = 15;
+    private static final int BOTTOM_PADDING = 10;
 
+    private static final int HEADER_SIZE = 50;
+    private static final int HEADER_PADDING = 5;
+
+    private ScrollView scroll;
+    private LinearLayout ll;
+    LinearLayout.LayoutParams layoutParams;
 
     // TODO: Rename and change types of parameters
-    private String storyText;
+    // private String storyText;
 
     private OnFragmentInteractionListener mListener;
 
@@ -68,9 +77,33 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         View view =  inflater.inflate(R.layout.fragment_home,
                 container, false);
 
+        // the linear layout ll is the layout in which we want to add scrolling events/stories
+        scroll = (ScrollView) view.findViewById(R.id.home_scroll);
+        ll = (LinearLayout) scroll.findViewById(R.id.home_news_feed);
+        layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+
+        updateNewsFeed();
+
         return view;
     }
 
+    // this function adds notifications to our scrolling inbox page
+    private void addNewStory(Story s) {
+        // creates a new textView that will be placed in our scrolling linear layout
+        TextView tv = new TextView(getActivity());
+        tv.setText(s.title);
+        tv.setLayoutParams(layoutParams);
+        tv.setTextSize(STORY_TITLE_SIZE);
+        ll.addView(tv);
+
+        TextView tv2 = new TextView(getActivity());
+        tv2.setText(s.story);
+        tv2.setLayoutParams(layoutParams);
+        tv2.setTextSize(STORY_BODY_SIZE);
+        // tv2.setPadding(0,0,0,5);
+        tv2.setBottom(BOTTOM_PADDING);
+        ll.addView(tv2);
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -94,6 +127,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        clearNewsFeed();
     }
 
     /**
@@ -116,5 +150,28 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         switch (view.getId()) {
 
         }
+    }
+
+    // loops through all notifications from database
+    public void updateNewsFeed(){
+        clearNewsFeed();
+        for(int i = 0; i < MainActivity.db.stories.size(); i++){
+            addNewStory(MainActivity.db.stories.get(i));
+        }
+    }
+
+    // clears the news feed before updating, adds the header back
+    public void clearNewsFeed(){
+        if(ll.getChildCount() > 0){
+            ll.removeAllViews();
+        }
+
+        TextView tv = new TextView(getActivity());
+        tv.setText("News Feed");
+        tv.setLayoutParams(layoutParams);
+        tv.setTextSize(HEADER_SIZE);
+        tv.setPadding(0,0,0, HEADER_PADDING);
+        tv.setGravity(Gravity.CENTER);
+        ll.addView(tv);
     }
 }

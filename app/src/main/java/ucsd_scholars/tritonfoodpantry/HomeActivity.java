@@ -86,21 +86,11 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         @StringRes int text;
+        boolean isHome = false;
         switch (item.getItemId()) {
             case R.id.menu_home:
-                if(getIntent().getAction() == NewStoryActivity.ACTION_ADD_STORY) {
-                    // if we received intent from NewStoryActivity to add a new story to home page
-                    Bundle bundle = new Bundle();
-                    bundle = getIntent().getExtras();
-                    String eventText = bundle.getString(HomeFragment.STORY_TITLE_AND_DETAILS);
-                    bundle.putString(HomeFragment.STORY_TITLE_AND_DETAILS, eventText);
-                    Log.d("HomeActivity", eventText);
-                    fragment = new HomeFragment();
-                    fragment.setArguments(bundle);
-                }
-                else{
-                    fragment = new HomeFragment();
-                }
+                fragment = new HomeFragment();
+                isHome = true;
                 break;
             case R.id.menu_calendar:
                 fragment = new CalendarFragment();
@@ -113,6 +103,11 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         }
 
         final FragmentTransaction transaction = fragmentManager.beginTransaction();
+        // refresh screen if it's the home screen; updates news feed
+        if(isHome){
+            transaction.detach(fragment);
+            transaction.attach(fragment);
+        }
         transaction.replace(R.id.fragment_container, fragment).commit();
         return true;
     }

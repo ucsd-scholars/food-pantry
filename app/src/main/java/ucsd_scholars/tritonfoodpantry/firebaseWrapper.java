@@ -109,7 +109,7 @@ public class firebaseWrapper {
 
     public void writeToStories(String title, String body){
         DatabaseReference stories = database.getReference("stories");
-        stories.setValue(new Story(title, body));
+
         int hash = (title+body).hashCode();
         String key = Integer.toString(hash);
 
@@ -210,6 +210,8 @@ public class firebaseWrapper {
     // adds a notification to the arraylist
     protected static void addToRecentNotifications(Map<String,Object> map){
         //iterate through each story
+        notifications.clear();
+
         for (Map.Entry<String, Object> entry : map.entrySet()){
 
             //Get user map
@@ -224,6 +226,8 @@ public class firebaseWrapper {
 
     // adds a story to the arraylist
     protected static void addToStories(Map<String,Object> map){
+        stories.clear();
+
         for (Map.Entry<String, Object> entry : map.entrySet()){
 
             //Get user map
