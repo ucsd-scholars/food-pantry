@@ -69,21 +69,6 @@ public class NotificationActivity extends AppCompatActivity {
             return;
         }
 
-        /*notificationBuilder.setSmallIcon(R.drawable.profile);
-        notificationBuilder.setContentTitle(messageTitle.getText().toString());
-        notificationBuilder.setContentText(messageText.getText().toString());
-
-        // cute little idiom
-        Intent notificationIntent = new Intent(this, HomeActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(
-                this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        notificationBuilder.setContentIntent(contentIntent);
-
-        // Actually send it
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(0, notificationBuilder.build());*/
-
         // sends push notification to all devices using volley
         sendFCMPush(messageTitle.getText().toString(), messageText.getText().toString());
 
@@ -194,6 +179,7 @@ public class NotificationActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         pushNotification();
+                        finish();
                     }
                 });
 
