@@ -29,9 +29,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     private static final int STORY_TEXT_SIZE = 40;
 
-    private ScrollView scroll;
-    private LinearLayout ll;
-    LinearLayout.LayoutParams layoutParams;
 
     // TODO: Rename and change types of parameters
     private String storyText;
@@ -62,12 +59,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if(savedInstanceState != null && savedInstanceState.getString(STORY_TITLE_AND_DETAILS) != null){
-            storyText = savedInstanceState.getString(STORY_TITLE_AND_DETAILS);
-            Log.d("HomeFragment", storyText);
-            addNewStory(storyText);
-        }
     }
 
     @Override
@@ -77,32 +68,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         View view =  inflater.inflate(R.layout.fragment_home,
                 container, false);
 
-        // the linear layout ll is the layout in which we want to add scrolling events/stories
-        scroll = (ScrollView) view.findViewById(R.id.home_scroll);
-        ll = (LinearLayout) scroll.findViewById(R.id.home_news_feed);
-        layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-
-        // this function adds events/stories to our scrolling home page
-        // addNewStory("This is a news story");
-        if(getArguments() != null && getArguments().getString(STORY_TITLE_AND_DETAILS) != null){
-            storyText = getArguments().getString(STORY_TITLE_AND_DETAILS);
-            Log.d("HomeFragment", "got the story text from bundle!!!" + storyText);
-            addNewStory(storyText);
-        }
-
         return view;
     }
 
-    // this function adds events/stories to our scrolling home page
-    private void addNewStory(String string) {
-        // creates a new textView that will be placed in our scrolling linear layout
-        TextView tv = new TextView(getActivity());
-        tv.setText(string);
-        tv.setLayoutParams(layoutParams);
-        tv.setTextSize(STORY_TEXT_SIZE);
-        tv.setPadding(0,0,0,5);
-        ll.addView(tv);
-    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
