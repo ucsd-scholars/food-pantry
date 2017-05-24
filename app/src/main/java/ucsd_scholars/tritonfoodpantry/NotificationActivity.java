@@ -1,9 +1,7 @@
 package ucsd_scholars.tritonfoodpantry;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -53,7 +51,7 @@ public class NotificationActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pushNotification();
+                dialogPromptSend(v);
             }
         });
     }
@@ -71,7 +69,7 @@ public class NotificationActivity extends AppCompatActivity {
             return;
         }
 
-        notificationBuilder.setSmallIcon(R.drawable.profile);
+        /*notificationBuilder.setSmallIcon(R.drawable.profile);
         notificationBuilder.setContentTitle(messageTitle.getText().toString());
         notificationBuilder.setContentText(messageText.getText().toString());
 
@@ -84,10 +82,12 @@ public class NotificationActivity extends AppCompatActivity {
         // Actually send it
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(0, notificationBuilder.build());
+        notificationManager.notify(0, notificationBuilder.build());*/
 
         // sends push notification to all devices using volley
         sendFCMPush(messageTitle.getText().toString(), messageText.getText().toString());
+
+        Toast.makeText(getApplicationContext(), "Notification Sent!", Toast.LENGTH_SHORT).show();
     }
 
     // http://stackoverflow.com/questions/37435750/how-to-send-device-to-device-messages-using-firebase-cloud-messaging
@@ -152,5 +152,60 @@ public class NotificationActivity extends AppCompatActivity {
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         jsObjRequest.setRetryPolicy(policy);
         requestQueue.add(jsObjRequest);
+    }
+
+    // pop up dialog to the user asking if he/she wants to cancel notification
+    public void dialogPromptCancel(View view){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("Are you sure you want to delete this notification?");
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        messageText.setText("");
+                        messageTitle.setText("");
+                        dialog.cancel();
+                        finish();
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    // asks if admin is sure about sending notification
+    public void dialogPromptSend(View view){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("Are you sure you want to send this notification?");
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        pushNotification();
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
     }
 }
