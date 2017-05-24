@@ -10,6 +10,12 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/button_recentNotifications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Recent Notifications" />
+
+        <Button
             android:id="@+id/button_toVolunteer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

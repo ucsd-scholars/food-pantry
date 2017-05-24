@@ -72,6 +72,9 @@ public class NotificationActivity extends AppCompatActivity {
         // sends push notification to all devices using volley
         sendFCMPush(messageTitle.getText().toString(), messageText.getText().toString());
 
+        // write this new notification to the database storing all notifications
+        MainActivity.db.writeToNotifications(messageTitle.getText().toString(), messageText.getText().toString());
+
         Toast.makeText(getApplicationContext(), "Notification Sent!", Toast.LENGTH_SHORT).show();
     }
 

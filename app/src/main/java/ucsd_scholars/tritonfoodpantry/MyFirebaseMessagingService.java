@@ -20,13 +20,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated.
 
+        String title = remoteMessage.getData().get("title");
+        String body = remoteMessage.getNotification().getBody();
+
+        // makes notification appear even when app is in foreground
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this);
         notificationBuilder.setSmallIcon(R.drawable.profile);
-        notificationBuilder.setContentTitle(remoteMessage.getData().get("title"));
-        notificationBuilder.setContentText(remoteMessage.getNotification().getBody());
+        notificationBuilder.setContentTitle(title);
+        notificationBuilder.setContentText(body);
 
-        // cute little idiom
         Intent notificationIntent = new Intent(this, HomeActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(
                 this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -37,9 +40,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, notificationBuilder.build());
 
+        // add this new notification to HomeActivity's arraylist of recent notifications
+        // MainActivity.db.addToRecentNotifications(new Story(title, body));
+
         Log.d(TAG, "message RECEIVED!!!");
         Log.d(TAG, "From: " + remoteMessage.getFrom());
-        Log.d(TAG, "Title: " + remoteMessage.getData().get("title"));
-        Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
+        Log.d(TAG, "Title: " + title);
+        Log.d(TAG, "Notification Message Body: " + body);
     }
 }

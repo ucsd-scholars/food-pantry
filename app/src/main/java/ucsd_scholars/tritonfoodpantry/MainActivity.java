@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     //firebase authentication and listener
     protected static FirebaseAuth mAuth;
     protected static FirebaseAuth.AuthStateListener mAuthListener;
-    protected static FirebaseDatabaseReferenceWrapper databaseWrapper;
     protected static firebaseWrapper db;
 
     // used for facebook login button
@@ -60,8 +59,9 @@ public class MainActivity extends AppCompatActivity {
         db.readAdminList();
         db.readUserList();
 
-        // our reference to the database used to read/write
-        databaseWrapper = new FirebaseDatabaseReferenceWrapper();
+        // reads any recent notifications or stories from database so we can update ui
+        db.readNotifications();
+        db.readStories();
 
         // if we decided to exit from the login screen, then this will close the app
         if (getIntent().getBooleanExtra("EXIT", false))
