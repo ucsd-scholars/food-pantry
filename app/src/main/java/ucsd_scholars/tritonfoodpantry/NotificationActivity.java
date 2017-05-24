@@ -22,23 +22,13 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.RemoteMessage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class NotificationActivity extends AppCompatActivity {
 
@@ -88,18 +78,7 @@ public class NotificationActivity extends AppCompatActivity {
         notificationBuilder.setContentTitle(messageTitle.getText().toString());
         notificationBuilder.setContentText(messageText.getText().toString());
 
-        // sendFirebaseNotification(messageTitle.getText().toString(), messageText.getText().toString());
-        //sendPushToSingleInstance(this, dataVal, FirebaseInstanceId.getInstance().getToken());
-        //sendFCMPush(messageTitle.getText().toString(), messageText.getText().toString());
-        /*try {
-            sendPushNotification(messageTitle.getText().toString(), messageText.getText().toString(),
-                                    FirebaseInstanceId.getInstance().getToken());
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }*/
-        //sendNotificationThroughFirebase(messageTitle.getText().toString(), messageText.getText().toString());
-        sendNotificationToUser(messageTitle.getText().toString(), messageText.getText().toString());
+        sendFCMPush(messageTitle.getText().toString(), messageText.getText().toString());
 
         // cute little idiom
         Intent notificationIntent = new Intent(this, HomeActivity.class);
@@ -164,7 +143,7 @@ public class NotificationActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", "key=" + LEGACY_SERVER_KEY);
-                //params.put("Content-Type", "application/json");
+                params.put("Content-Type", "application/json");
                 return params;
             }
         };
@@ -173,81 +152,5 @@ public class NotificationActivity extends AppCompatActivity {
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         jsObjRequest.setRetryPolicy(policy);
         requestQueue.add(jsObjRequest);
-    }
-
-    // http://stackoverflow.com/questions/37516589/send-push-notifications-from-server-with-fcm
-    public static String sendPushNotification(String title, String msg, String deviceToken)
-            throws IOException {
-        String result = "";
-        URL url = new URL(API_URL_FCM);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
-        conn.setUseCaches(false);
-        conn.setDoInput(true);
-        conn.setDoOutput(true);
-
-        conn.setRequestMethod("POST");
-        conn.setRequestProperty("Authorization", "key=" + AUTH_KEY_FCM);
-        conn.setRequestProperty("Content-Type", "application/json");
-
-        JSONObject json = new JSONObject();
-
-
-        try {
-            json.put("to", deviceToken.trim());
-            JSONObject info = new JSONObject();
-            info.put("title", title); // Notification title
-            info.put("body", msg); // Notification
-            // body
-            json.put("notification", info);
-
-            OutputStreamWriter wr = new OutputStreamWriter(
-                    conn.getOutputStream());
-            wr.write(json.toString());
-            wr.flush();
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(
-                    (conn.getInputStream())));
-
-            String output;
-            System.out.println("Output from Server .... \n");
-            while ((output = br.readLine()) != null) {
-                System.out.println(output);
-            }
-            result = "SUCCESS";
-        } catch (Exception e) {
-            e.printStackTrace();
-            result ="FAILURE";
-        }
-        System.out.println("GCM Notification is sent successfully");
-
-        return result;
-
-    }
-
-    // https://mobikul.com/android-sending-notification-app-via-firebase-console/
-    private void sendNotificationThroughFirebase(String title, String msg){
-        Map<String, String> data = new HashMap<>();
-        data.put("title", title);
-        data.put("description", msg);
-        FirebaseMessaging fm = FirebaseMessaging.getInstance();
-        AtomicInteger msgId = new AtomicInteger();
-        fm.send(new RemoteMessage.Builder(FirebaseInstanceId.getInstance().getToken())
-                .setMessageId(String.valueOf(msgId))
-                .setData(data)
-                .build());
-
-    }
-
-    // https://firebase.googleblog.com/2016/08/sending-notifications-between-android.html
-    public static void sendNotificationToUser(String title, final String message) {
-        //FirebaseDatabase ref = new FirebaseDatabase(FIREBASE_URL);
-        final DatabaseReference notifications = firebaseWrapper.database.getReference().child("notificationRequests");
-
-        Map notification = new HashMap<>();
-        notification.put("news", "news");
-        notification.put("message", title + ": " + message);
-
-        notifications.push().setValue(notification);
     }
 }
