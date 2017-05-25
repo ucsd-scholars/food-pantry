@@ -9,6 +9,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Map;
 
 /**
@@ -217,10 +219,19 @@ public class firebaseWrapper {
             //Get user map
             Map singleStory = (Map) entry.getValue();
             //Get story and append to list
-            Story story = new Story((String) singleStory.get("title"), (String) singleStory.get("story"));
+            Story story = new Story((String) singleStory.get("title"), (String) singleStory.get("story"),
+                                    (long) singleStory.get("time"));
             notifications.add((Story) story);
 
             Log.d("firebasewrapper", singleStory.toString());
+        }
+
+        // Sorting our notifications by time, should put oldest/highest time stories first
+        Collections.sort(notifications, new OrderByTime());
+
+        // for testing sort
+        for(int i = 0; i < notifications.size(); i++){
+            System.out.println(notifications.get(i).title);
         }
     }
 
@@ -233,11 +244,31 @@ public class firebaseWrapper {
             //Get user map
             Map singleStory = (Map) entry.getValue();
             //Get story and append to list
-            Story story = new Story((String) singleStory.get("title"), (String) singleStory.get("story"));
+            Story story = new Story((String) singleStory.get("title"), (String) singleStory.get("story"),
+                                    (long) singleStory.get("time"));
             stories.add((Story) story);
 
             Log.d("firebasewrapper", singleStory.toString());
+        }
 
+        // Sorting our notifications by time, should put oldest/highest time stories first
+        Collections.sort(stories, new OrderByTime());
+
+        // for testing sort
+        for(int i = 0; i < stories.size(); i++){
+            System.out.println(stories.get(i).title);
+        }
+    }
+
+    // should be used to sort stories by latest time, so newest stories are shown first
+    static class OrderByTime implements Comparator<Story>
+    {
+        @Override
+        public int compare(Story s1, Story s2)
+        {
+            int t1 = (int) s1.time;
+            int t2 = (int) s2.time;
+            return t2 - t1;
         }
     }
 }

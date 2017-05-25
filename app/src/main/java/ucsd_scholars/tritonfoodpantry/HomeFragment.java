@@ -4,11 +4,12 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.text.Html;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ScrollView;
@@ -20,7 +21,7 @@ import android.widget.TextView;
  * Activities that contain this fragment must implement the
  * {@link HomeFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link HomeFragment#newInstance} factory method to
+ * Use the {@link HomeFragment newInstance} factory method to
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment implements View.OnClickListener{
@@ -34,10 +35,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     private static final int HEADER_SIZE = 50;
     private static final int HEADER_PADDING = 5;
+    private static final int MAX_LINES = 1000;
 
     private ScrollView scroll;
     private LinearLayout ll;
-    LinearLayout.LayoutParams layoutParams;
+    LinearLayout.LayoutParams layoutParams, imageParams;
+    private ImageView image;
 
     // TODO: Rename and change types of parameters
     // private String storyText;
@@ -81,6 +84,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         scroll = (ScrollView) view.findViewById(R.id.home_scroll);
         ll = (LinearLayout) scroll.findViewById(R.id.home_news_feed);
         layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(convertToDP(HEADER_PADDING),convertToDP(HEADER_PADDING),
+                                convertToDP(HEADER_PADDING), convertToDP(HEADER_PADDING));
+        imageParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        imageParams.gravity = Gravity.CENTER;
 
         updateNewsFeed();
 
@@ -90,19 +97,28 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     // this function adds notifications to our scrolling inbox page
     private void addNewStory(Story s) {
         // creates a new textView that will be placed in our scrolling linear layout
+
         TextView tv = new TextView(getActivity());
-        tv.setText(s.title);
+        String text = "<b>" + s.title + "</b> <br />" + s.story;
+        tv.setText(Html.fromHtml(text));
         tv.setLayoutParams(layoutParams);
         tv.setTextSize(STORY_TITLE_SIZE);
+        tv.setTextColor(getResources().getColor(R.color.white));
+        tv.setBackgroundColor(getResources().getColor(R.color.blue));
+        tv.setMaxLines(MAX_LINES);
+        //tv.setPadding(0, convertToDP(HEADER_PADDING), 0, 0);
         ll.addView(tv);
 
-        TextView tv2 = new TextView(getActivity());
+        /*TextView tv2 = new TextView(getActivity());
         tv2.setText(s.story);
         tv2.setLayoutParams(layoutParams);
         tv2.setTextSize(STORY_BODY_SIZE);
         // tv2.setPadding(0,0,0,5);
         tv2.setBottom(BOTTOM_PADDING);
-        ll.addView(tv2);
+        tv2.setTextColor(getResources().getColor(R.color.white));
+        tv2.setBackgroundColor(getResources().getColor(R.color.blue));
+        //tv2.setPadding(0, 0, 0, convertToDP(HEADER_PADDING));
+        ll.addView(tv2);*/
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -166,6 +182,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             ll.removeAllViews();
         }
 
+        // re-adds image and header after clearing screen
+        image = new ImageView(getActivity());
+        image.setBackgroundResource(R.drawable.profile_outline);
+        image.setLayoutParams(imageParams);
+        ll.addView(image);
+
         TextView tv = new TextView(getActivity());
         tv.setText("News Feed");
         tv.setLayoutParams(layoutParams);
@@ -173,5 +195,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         tv.setPadding(0,0,0, HEADER_PADDING);
         tv.setGravity(Gravity.CENTER);
         ll.addView(tv);
+    }
+
+    // converts pixels to dp
+    private int convertToDP(int paddingPixel){
+        float density = this.getResources().getDisplayMetrics().density;
+        int paddingDp = (int)(paddingPixel * density);
+        return paddingDp;
     }
 }
