@@ -27,6 +27,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import static ucsd_scholars.tritonfoodpantry.MainActivity.mAuth;
+import static ucsd_scholars.tritonfoodpantry.MainActivity.settingsEditor;
+import static ucsd_scholars.tritonfoodpantry.firebaseWrapper.adminEmails;
 
 
 /**
@@ -139,6 +141,17 @@ public class GoogleSignInActivity extends FragmentActivity implements
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             //updateUI(user);
+                            // after signing in, we check if user is an admin; if so, we save the pref to be true
+                            if(adminEmails.toLowerCase().contains(user.getEmail().toLowerCase())){
+                                settingsEditor.putBoolean("isAdmin", true);
+                                settingsEditor.commit();
+                                Toast.makeText(GoogleSignInActivity.this, "you are an admin!",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                               /* Toast.makeText(GoogleSignInActivity.this, "not admin",
+                                        Toast.LENGTH_SHORT).show();*/
+                            }
                             goToHomeActivity();
                         } else {
                             // If sign in fails, display a message to the user.
