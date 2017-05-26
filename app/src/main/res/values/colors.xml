@@ -154,6 +154,7 @@
     <color name="MediumSpringGreen">#00FA9A</color>
     <color name="DarkTurquoise">#00CED1</color>
     <color name="DeepSkyBlue">#00BFFF</color>
+    <color name="DeepSkyBlue_transparent">#6600BFFF</color>
     <color name="DeepSkyBlue_Darker">#02bbf9</color>
     <color name="DarkCyan">#008B8B</color>
     <color name="Teal">#008080</color>

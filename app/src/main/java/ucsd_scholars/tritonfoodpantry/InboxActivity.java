@@ -3,6 +3,7 @@ package ucsd_scholars.tritonfoodpantry;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -15,6 +16,8 @@ public class InboxActivity extends AppCompatActivity {
     private static final int BOTTOM_PADDING = 10;
     private static final int HORIZONTAL_PADDING = 7;
     private static final int VERTICAL_PADDING = 3;
+    private static final int HEADER_SIZE = 25;
+    private static final int HEADER_PADDING = 5;
     private static final int MAX_LINES = 1000;
 
     private ScrollView scroll;
@@ -45,9 +48,11 @@ public class InboxActivity extends AppCompatActivity {
         tv.setText(Html.fromHtml(text));
         tv.setLayoutParams(layoutParams);
         tv.setTextSize(STORY_TITLE_SIZE);
-        //tv.setTextColor(getResources().getColor(R.color.white));
-        //tv.setBackgroundColor(getResources().getColor(R.color.DeepSkyBlue));
-        tv.setBackground(getResources().getDrawable(R.drawable.border));
+        tv.setTextColor(getResources().getColor(R.color.colorPrimary));
+        tv.setBackgroundColor(getResources().getColor(R.color.Gold));
+        tv.setPadding(convertToDP(HORIZONTAL_PADDING),convertToDP(VERTICAL_PADDING),
+                      convertToDP(HORIZONTAL_PADDING), convertToDP(VERTICAL_PADDING));
+        //tv.setBackground(getResources().getDrawable(R.drawable.border));
         tv.setMaxLines(MAX_LINES);
         ll.addView(tv);
 
@@ -73,6 +78,17 @@ public class InboxActivity extends AppCompatActivity {
         if(ll.getChildCount() > 0){
             ll.removeAllViews();
         }
+
+        // re-adds our header
+        TextView tv = new TextView(this);
+        String text = "<b>" + "Recent Notifications" + "</b>";
+        tv.setText(Html.fromHtml(text));
+        tv.setTextColor(getResources().getColor(R.color.white));
+        tv.setBackground(getResources().getDrawable(R.drawable.border));
+        tv.setLayoutParams(layoutParams);
+        tv.setTextSize(HEADER_SIZE);
+        tv.setGravity(Gravity.CENTER);
+        ll.addView(tv);
     }
 
     // converts pixels to dp

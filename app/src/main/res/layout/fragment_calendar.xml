@@ -31,12 +31,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border"
-                    android:calendarTextColor="@color/colorPrimary"/>
+                    android:layout_marginTop="3dp"
+                    android:calendarTextColor="@color/white"/>
 
                 <TextView
                     android:id="@+id/calendar_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/Gold"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="5dp"
                     android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>

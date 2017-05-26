@@ -33,7 +33,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private static final int STORY_BODY_SIZE = 15;
     private static final int BOTTOM_PADDING = 10;
 
-    private static final int HEADER_SIZE = 50;
+    private static final int HEADER_SIZE = 40;
     private static final int HEADER_PADDING = 5;
     private static final int HORIZONTAL_PADDING = 7;
     private static final int VERTICAL_PADDING = 3;
@@ -41,7 +41,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     private ScrollView scroll;
     private LinearLayout ll;
-    LinearLayout.LayoutParams layoutParams, imageParams;
+    LinearLayout.LayoutParams layoutParams, imageParams, lineParams;
     private ImageView image;
 
     // TODO: Rename and change types of parameters
@@ -87,9 +87,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         ll = (LinearLayout) scroll.findViewById(R.id.home_news_feed);
         layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(convertToDP(HORIZONTAL_PADDING),convertToDP(VERTICAL_PADDING),
-                                convertToDP(HORIZONTAL_PADDING), convertToDP(VERTICAL_PADDING));
+                convertToDP(HORIZONTAL_PADDING), convertToDP(VERTICAL_PADDING));
         imageParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         imageParams.gravity = Gravity.CENTER;
+        lineParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, convertToDP(2));
 
         updateNewsFeed();
 
@@ -105,23 +106,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         tv.setText(Html.fromHtml(text));
         tv.setLayoutParams(layoutParams);
         tv.setTextSize(STORY_TITLE_SIZE);
-        //tv.setTextColor(getResources().getColor(R.color.white));
-        //tv.setBackgroundColor(getResources().getColor(R.color.DeepSkyBlue));
-        tv.setBackground(getResources().getDrawable(R.drawable.border));
+        tv.setPadding(convertToDP(HORIZONTAL_PADDING),convertToDP(VERTICAL_PADDING),
+                      convertToDP(HORIZONTAL_PADDING), convertToDP(VERTICAL_PADDING));
+        tv.setTextColor(getResources().getColor(R.color.colorPrimary));
+        tv.setBackgroundColor(getResources().getColor(R.color.Gold));
+        //tv.setBackground(getResources().getDrawable(R.drawable.border));
         tv.setMaxLines(MAX_LINES);
         //tv.setPadding(0, convertToDP(HEADER_PADDING), 0, 0);
         ll.addView(tv);
-
-        /*TextView tv2 = new TextView(getActivity());
-        tv2.setText(s.story);
-        tv2.setLayoutParams(layoutParams);
-        tv2.setTextSize(STORY_BODY_SIZE);
-        // tv2.setPadding(0,0,0,5);
-        tv2.setBottom(BOTTOM_PADDING);
-        tv2.setTextColor(getResources().getColor(R.color.white));
-        tv2.setBackgroundColor(getResources().getColor(R.color.blue));
-        //tv2.setPadding(0, 0, 0, convertToDP(HEADER_PADDING));
-        ll.addView(tv2);*/
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -172,11 +164,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     }
 
     // loops through all notifications from database
+    // the empty lines make it look better
     public void updateNewsFeed(){
         clearNewsFeed();
+        //addEmptyLine();
         for(int i = 0; i < MainActivity.db.stories.size(); i++){
             addNewStory(MainActivity.db.stories.get(i));
         }
+        //addEmptyLine();
     }
 
     // clears the news feed before updating, adds the header back
@@ -192,8 +187,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         ll.addView(image);
 
         TextView tv = new TextView(getActivity());
-        tv.setText("News Feed");
-        tv.setTextColor(getResources().getColor(R.color.colorPrimary));
+        String text = "<b>" + "News Feed" + "</b>";
+        tv.setText(Html.fromHtml(text));
+        tv.setTextColor(getResources().getColor(R.color.white));
+        tv.setBackground(getResources().getDrawable(R.drawable.border));
         tv.setLayoutParams(layoutParams);
         tv.setTextSize(HEADER_SIZE);
         tv.setPadding(0,0,0, HEADER_PADDING);
@@ -206,5 +203,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         float density = this.getResources().getDisplayMetrics().density;
         int paddingDp = (int)(paddingPixel * density);
         return paddingDp;
+    }
+
+    // we use this to add a thicker line above and below the stories
+    private void addEmptyLine(){
+        View tv = new View(getActivity());
+        tv.setLayoutParams(lineParams);
+        ll.addView(tv);
     }
 }
