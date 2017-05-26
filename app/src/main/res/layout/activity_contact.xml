@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/link"
+        android:textColorLink="@color/DeepSkyBlue"
         android:textSize="16sp" />
 
     <TextView
@@ -29,5 +30,6 @@
         android:layout_height="wrap_content"
         android:paddingTop="30dp"
         android:text="@string/phone_number"
+        android:textColorLink="@color/DeepSkyBlue"
         android:textSize="16sp" />
 </LinearLayout>

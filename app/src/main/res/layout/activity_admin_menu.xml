@@ -12,24 +12,36 @@
         android:id="@+id/button_addAdmin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:text="Grant Administrator Privileges"/>
 
     <Button
         android:id="@+id/button_revokeAdmin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:text="Revoke Administrator Privileges"/>
 
     <Button
         android:id="@+id/button_toNotificationActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:text="Send Notification" />
 
     <Button
         android:id="@+id/button_editHomePage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:text="Edit Home Page" />
 
 </LinearLayout>

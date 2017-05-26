@@ -13,7 +13,7 @@ public class InboxActivity extends AppCompatActivity {
     private static final int STORY_TITLE_SIZE = 20;
     private static final int STORY_BODY_SIZE = 15;
     private static final int BOTTOM_PADDING = 10;
-    private static final int HORIZONTAL_PADDING = 5;
+    private static final int HORIZONTAL_PADDING = 7;
     private static final int VERTICAL_PADDING = 3;
     private static final int MAX_LINES = 1000;
 

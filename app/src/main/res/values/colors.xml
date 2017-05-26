@@ -40,6 +40,7 @@
     <color name="NavajoWhite">#FFDEAD</color>
     <color name="PeachPuff">#FFDAB9</color>
     <color name="Gold">#FFD700</color>
+    <color name="Gold_Darker">#e2c212</color>
     <color name="Pink">#FFC0CB</color>
     <color name="LightPink">#FFB6C1</color>
     <color name="Orange">#FFA500</color>
@@ -153,6 +154,7 @@
     <color name="MediumSpringGreen">#00FA9A</color>
     <color name="DarkTurquoise">#00CED1</color>
     <color name="DeepSkyBlue">#00BFFF</color>
+    <color name="DeepSkyBlue_Darker">#02bbf9</color>
     <color name="DarkCyan">#008B8B</color>
     <color name="Teal">#008080</color>
     <color name="Green">#008000</color>

@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     private static final int HEADER_SIZE = 50;
     private static final int HEADER_PADDING = 5;
-    private static final int HORIZONTAL_PADDING = 5;
+    private static final int HORIZONTAL_PADDING = 7;
     private static final int VERTICAL_PADDING = 3;
     private static final int MAX_LINES = 1000;
 

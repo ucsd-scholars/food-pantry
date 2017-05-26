@@ -13,30 +13,45 @@
             android:id="@+id/button_recentNotifications"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:text="Recent Notifications" />
 
         <Button
             android:id="@+id/button_toVolunteer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:text="Volunteer" />
 
         <Button
             android:id="@+id/button_toContact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:text="Contact Us" />
 
         <Button
             android:id="@+id/button_SignOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:text="Sign out" />
 
         <Button
             android:id="@+id/button_toAdminMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:text="Administrator Actions" />
 
     </LinearLayout>
