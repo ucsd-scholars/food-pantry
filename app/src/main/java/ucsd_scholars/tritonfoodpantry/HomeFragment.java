@@ -29,12 +29,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     static final String STORY_TITLE_AND_DETAILS = "param1";
 
-    private static final int STORY_TITLE_SIZE = 30;
+    private static final int STORY_TITLE_SIZE = 20;
     private static final int STORY_BODY_SIZE = 15;
     private static final int BOTTOM_PADDING = 10;
 
     private static final int HEADER_SIZE = 50;
     private static final int HEADER_PADDING = 5;
+    private static final int HORIZONTAL_PADDING = 5;
+    private static final int VERTICAL_PADDING = 3;
     private static final int MAX_LINES = 1000;
 
     private ScrollView scroll;
@@ -84,8 +86,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         scroll = (ScrollView) view.findViewById(R.id.home_scroll);
         ll = (LinearLayout) scroll.findViewById(R.id.home_news_feed);
         layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(convertToDP(HEADER_PADDING),convertToDP(HEADER_PADDING),
-                                convertToDP(HEADER_PADDING), convertToDP(HEADER_PADDING));
+        layoutParams.setMargins(convertToDP(HORIZONTAL_PADDING),convertToDP(VERTICAL_PADDING),
+                                convertToDP(HORIZONTAL_PADDING), convertToDP(VERTICAL_PADDING));
         imageParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         imageParams.gravity = Gravity.CENTER;
 
@@ -103,8 +105,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         tv.setText(Html.fromHtml(text));
         tv.setLayoutParams(layoutParams);
         tv.setTextSize(STORY_TITLE_SIZE);
-        tv.setTextColor(getResources().getColor(R.color.white));
-        tv.setBackgroundColor(getResources().getColor(R.color.DeepSkyBlue));
+        //tv.setTextColor(getResources().getColor(R.color.white));
+        //tv.setBackgroundColor(getResources().getColor(R.color.DeepSkyBlue));
+        tv.setBackground(getResources().getDrawable(R.drawable.border));
         tv.setMaxLines(MAX_LINES);
         //tv.setPadding(0, convertToDP(HEADER_PADDING), 0, 0);
         ll.addView(tv);

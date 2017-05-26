@@ -10,10 +10,11 @@ import android.widget.TextView;
 
 public class InboxActivity extends AppCompatActivity {
 
-    private static final int STORY_TITLE_SIZE = 30;
+    private static final int STORY_TITLE_SIZE = 20;
     private static final int STORY_BODY_SIZE = 15;
     private static final int BOTTOM_PADDING = 10;
-    private static final int HEADER_PADDING = 5;
+    private static final int HORIZONTAL_PADDING = 5;
+    private static final int VERTICAL_PADDING = 3;
     private static final int MAX_LINES = 1000;
 
     private ScrollView scroll;
@@ -31,8 +32,8 @@ public class InboxActivity extends AppCompatActivity {
         scroll = (ScrollView) findViewById(R.id.home_scroll);
         ll = (LinearLayout) scroll.findViewById(R.id.notification_layout);
         layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(convertToDP(HEADER_PADDING),convertToDP(HEADER_PADDING),
-                                convertToDP(HEADER_PADDING), convertToDP(HEADER_PADDING));
+        layoutParams.setMargins(convertToDP(HORIZONTAL_PADDING),convertToDP(VERTICAL_PADDING),
+                                convertToDP(HORIZONTAL_PADDING), convertToDP(VERTICAL_PADDING));
         updateInbox();
     }
 
@@ -44,8 +45,9 @@ public class InboxActivity extends AppCompatActivity {
         tv.setText(Html.fromHtml(text));
         tv.setLayoutParams(layoutParams);
         tv.setTextSize(STORY_TITLE_SIZE);
-        tv.setTextColor(getResources().getColor(R.color.white));
-        tv.setBackgroundColor(getResources().getColor(R.color.DeepSkyBlue));
+        //tv.setTextColor(getResources().getColor(R.color.white));
+        //tv.setBackgroundColor(getResources().getColor(R.color.DeepSkyBlue));
+        tv.setBackground(getResources().getDrawable(R.drawable.border));
         tv.setMaxLines(MAX_LINES);
         ll.addView(tv);
 
