@@ -25,14 +25,15 @@
                 <DatePicker
                     android:id="@+id/datePicker"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:calendarTextColor="@color/colorPrimary"/>
 
                 <TextView
                     android:id="@+id/calendar_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="18sp" />
             </LinearLayout>
         </ScrollView>

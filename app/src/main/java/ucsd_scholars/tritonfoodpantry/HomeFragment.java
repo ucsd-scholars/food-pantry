@@ -104,7 +104,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         tv.setLayoutParams(layoutParams);
         tv.setTextSize(STORY_TITLE_SIZE);
         tv.setTextColor(getResources().getColor(R.color.white));
-        tv.setBackgroundColor(getResources().getColor(R.color.blue));
+        tv.setBackgroundColor(getResources().getColor(R.color.DeepSkyBlue));
         tv.setMaxLines(MAX_LINES);
         //tv.setPadding(0, convertToDP(HEADER_PADDING), 0, 0);
         ll.addView(tv);
@@ -190,6 +190,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         TextView tv = new TextView(getActivity());
         tv.setText("News Feed");
+        tv.setTextColor(getResources().getColor(R.color.colorPrimary));
         tv.setLayoutParams(layoutParams);
         tv.setTextSize(HEADER_SIZE);
         tv.setPadding(0,0,0, HEADER_PADDING);

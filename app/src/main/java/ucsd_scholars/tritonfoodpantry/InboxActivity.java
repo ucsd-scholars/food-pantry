@@ -45,7 +45,7 @@ public class InboxActivity extends AppCompatActivity {
         tv.setLayoutParams(layoutParams);
         tv.setTextSize(STORY_TITLE_SIZE);
         tv.setTextColor(getResources().getColor(R.color.white));
-        tv.setBackgroundColor(getResources().getColor(R.color.blue));
+        tv.setBackgroundColor(getResources().getColor(R.color.DeepSkyBlue));
         tv.setMaxLines(MAX_LINES);
         ll.addView(tv);
 

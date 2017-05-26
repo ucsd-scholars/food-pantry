@@ -28,6 +28,7 @@
                 android:textSize="30dp"
                 android:gravity="center"
                 android:paddingBottom="5dp"
+                android:textColor="@color/colorPrimary"
                 android:text="News Feed"/>
 
         </LinearLayout>
