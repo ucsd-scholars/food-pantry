@@ -11,11 +11,11 @@ import android.widget.TextView;
 
 public class InboxActivity extends AppCompatActivity {
 
-    private static final int STORY_TITLE_SIZE = 20;
+    private static final int STORY_TITLE_SIZE = 16;
     private static final int STORY_BODY_SIZE = 15;
     private static final int BOTTOM_PADDING = 10;
     private static final int HORIZONTAL_PADDING = 7;
-    private static final int VERTICAL_PADDING = 3;
+    private static final int VERTICAL_PADDING = 8;
     private static final int HEADER_SIZE = 25;
     private static final int HEADER_PADDING = 5;
     private static final int MAX_LINES = 1000;
@@ -35,8 +35,9 @@ public class InboxActivity extends AppCompatActivity {
         scroll = (ScrollView) findViewById(R.id.home_scroll);
         ll = (LinearLayout) scroll.findViewById(R.id.notification_layout);
         layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(convertToDP(HORIZONTAL_PADDING),convertToDP(VERTICAL_PADDING),
-                                convertToDP(HORIZONTAL_PADDING), convertToDP(VERTICAL_PADDING));
+       /* layoutParams.setMargins(convertToDP(HORIZONTAL_PADDING),convertToDP(VERTICAL_PADDING),
+                                convertToDP(HORIZONTAL_PADDING), convertToDP(VERTICAL_PADDING));*/
+        layoutParams.setMargins(0, convertToDP(VERTICAL_PADDING), 0, 0);
         updateInbox();
     }
 
@@ -48,8 +49,8 @@ public class InboxActivity extends AppCompatActivity {
         tv.setText(Html.fromHtml(text));
         tv.setLayoutParams(layoutParams);
         tv.setTextSize(STORY_TITLE_SIZE);
-        tv.setTextColor(getResources().getColor(R.color.colorPrimary));
-        tv.setBackgroundColor(getResources().getColor(R.color.Gold));
+        // tv.setTextColor(getResources().getColor(R.color.colorPrimary));
+        tv.setBackgroundColor(getResources().getColor(R.color.white));
         tv.setPadding(convertToDP(HORIZONTAL_PADDING),convertToDP(VERTICAL_PADDING),
                       convertToDP(HORIZONTAL_PADDING), convertToDP(VERTICAL_PADDING));
         //tv.setBackground(getResources().getDrawable(R.drawable.border));
@@ -84,7 +85,8 @@ public class InboxActivity extends AppCompatActivity {
         String text = "<b>" + "Recent Notifications" + "</b>";
         tv.setText(Html.fromHtml(text));
         tv.setTextColor(getResources().getColor(R.color.white));
-        tv.setBackground(getResources().getDrawable(R.drawable.border));
+        //tv.setBackground(getResources().getDrawable(R.drawable.border));
+        tv.setBackgroundColor(getResources().getColor(R.color.Gold));
         tv.setLayoutParams(layoutParams);
         tv.setTextSize(HEADER_SIZE);
         tv.setGravity(Gravity.CENTER);

@@ -8,6 +8,8 @@
               android:paddingLeft="@dimen/activity_horizontal_margin"
               android:paddingRight="@dimen/activity_horizontal_margin"
               android:paddingTop="@dimen/activity_vertical_margin"
+              android:background="@color/white"
+
               tools:context="ucsd_scholars.tritonfoodpantry.SignUpActivity">
 
     <!-- Login progress -->
@@ -68,9 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/action_sign_up"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"/>
+                android:layout_marginTop="5dp"/>
 
         </LinearLayout>
     </ScrollView>

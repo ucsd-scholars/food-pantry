@@ -5,11 +5,15 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-
+                android:background="@color/white"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
               tools:context="ucsd_scholars.tritonfoodpantry.VolunteerActivity">
     <TextView
         android:id="@+id/text_intro"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:gravity="center"
@@ -18,15 +22,12 @@
 
     <TextView
         android:id="@+id/link"
-        android:layout_width="368dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:gravity="center"
         android:layout_centerVertical="true"
         android:text="@string/link_volunteer"
-        android:textColorLink="@color/DeepSkyBlue"
+        android:textColorLink="@color/Gold"
         android:textSize="20dp"
         android:layout_marginTop="8dp" />
 

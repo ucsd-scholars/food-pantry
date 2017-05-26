@@ -3,16 +3,16 @@
     <item android:state_pressed="true">
         <shape>
             <solid
-                android:color="@color/Gold_Darker"/>
-<!--
-            android:color="@color/Gold_Darker"/>
--->
+                android:color="@color/LighterGrey"/>
+            <!--
+                        android:color="@color/Gold_Darker"/>
+            -->
             <stroke
                 android:width="2dp"
-                android:color="@color/Gold_Darker"/>
-<!--
-            android:color="@color/Gold_Darker"/>
--->
+                android:color="@color/LighterGrey"/>
+            <!--
+                        android:color="@color/Gold_Darker"/>
+            -->
             <corners
                 android:radius="3dp"/>
             <padding
@@ -27,10 +27,10 @@
         <shape>
             <gradient
                 android:angle="270"
-                android:endColor="@color/Gold"
-                android:startColor="@color/Gold"/>
-           <!-- android:endColor="@color/Gold_Darker"
-            android:startColor="@color/Gold"/>-->
+                android:endColor="@color/white"
+                android:startColor="@color/white"/>
+            <!-- android:endColor="@color/Gold_Darker"
+             android:startColor="@color/Gold"/>-->
 
             <corners
                 android:radius="3dp"/>

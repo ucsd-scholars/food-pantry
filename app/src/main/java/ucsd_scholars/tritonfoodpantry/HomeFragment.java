@@ -29,19 +29,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     static final String STORY_TITLE_AND_DETAILS = "param1";
 
-    private static final int STORY_TITLE_SIZE = 20;
+    private static final int STORY_TITLE_SIZE = 16;
     private static final int STORY_BODY_SIZE = 15;
     private static final int BOTTOM_PADDING = 10;
 
     private static final int HEADER_SIZE = 40;
     private static final int HEADER_PADDING = 5;
-    private static final int HORIZONTAL_PADDING = 7;
-    private static final int VERTICAL_PADDING = 3;
+    private static final int HORIZONTAL_PADDING = 0;
+    private static final int VERTICAL_PADDING = 8;
+    private static final int IMAGE_PADDING = 8;
     private static final int MAX_LINES = 1000;
 
     private ScrollView scroll;
     private LinearLayout ll;
-    LinearLayout.LayoutParams layoutParams, imageParams, lineParams;
+    LinearLayout.LayoutParams layoutParams, imageParams, topLineParams, bottomLineParams;
     private ImageView image;
 
     // TODO: Rename and change types of parameters
@@ -86,11 +87,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         scroll = (ScrollView) view.findViewById(R.id.home_scroll);
         ll = (LinearLayout) scroll.findViewById(R.id.home_news_feed);
         layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(convertToDP(HORIZONTAL_PADDING),convertToDP(VERTICAL_PADDING),
+        layoutParams.setMargins(convertToDP(HORIZONTAL_PADDING), 0,
                 convertToDP(HORIZONTAL_PADDING), convertToDP(VERTICAL_PADDING));
-        imageParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        imageParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        imageParams.setMargins(convertToDP(HORIZONTAL_PADDING),convertToDP(IMAGE_PADDING),
+                convertToDP(HORIZONTAL_PADDING), convertToDP(IMAGE_PADDING));
         imageParams.gravity = Gravity.CENTER;
-        lineParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, convertToDP(2));
+        topLineParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, convertToDP(2));
+        topLineParams.setMargins(0,convertToDP(VERTICAL_PADDING), 0, 0);
+        bottomLineParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, convertToDP(2));
+        bottomLineParams.setMargins(0,0, 0, 0);
 
         updateNewsFeed();
 
@@ -99,8 +105,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     // this function adds notifications to our scrolling inbox page
     private void addNewStory(Story s) {
-        // creates a new textView that will be placed in our scrolling linear layout
+        // addTopLine();
 
+        // creates a new textView that will be placed in our scrolling linear layout
         TextView tv = new TextView(getActivity());
         String text = "<b>" + s.title + "</b> <br />" + s.story;
         tv.setText(Html.fromHtml(text));
@@ -108,12 +115,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         tv.setTextSize(STORY_TITLE_SIZE);
         tv.setPadding(convertToDP(HORIZONTAL_PADDING),convertToDP(VERTICAL_PADDING),
                       convertToDP(HORIZONTAL_PADDING), convertToDP(VERTICAL_PADDING));
-        tv.setTextColor(getResources().getColor(R.color.colorPrimary));
-        tv.setBackgroundColor(getResources().getColor(R.color.Gold));
+        // tv.setTextColor(getResources().getColor(R.color.colorPrimary));
+        tv.setBackgroundColor(getResources().getColor(R.color.white));
         //tv.setBackground(getResources().getDrawable(R.drawable.border));
         tv.setMaxLines(MAX_LINES);
         //tv.setPadding(0, convertToDP(HEADER_PADDING), 0, 0);
         ll.addView(tv);
+
+        // addBottomLine();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -167,11 +176,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     // the empty lines make it look better
     public void updateNewsFeed(){
         clearNewsFeed();
-        //addEmptyLine();
         for(int i = 0; i < MainActivity.db.stories.size(); i++){
             addNewStory(MainActivity.db.stories.get(i));
         }
-        //addEmptyLine();
     }
 
     // clears the news feed before updating, adds the header back
@@ -182,7 +189,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         // re-adds image and header after clearing screen
         image = new ImageView(getActivity());
-        image.setBackgroundResource(R.drawable.profile_outline);
+        image.setBackgroundResource(R.drawable.triton_food_pantry_logo);
         image.setLayoutParams(imageParams);
         ll.addView(image);
 
@@ -190,7 +197,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         String text = "<b>" + "News Feed" + "</b>";
         tv.setText(Html.fromHtml(text));
         tv.setTextColor(getResources().getColor(R.color.white));
-        tv.setBackground(getResources().getDrawable(R.drawable.border));
+        //tv.setBackground(getResources().getDrawable(R.drawable.border));
+        tv.setBackgroundColor(getResources().getColor(R.color.Gold));
         tv.setLayoutParams(layoutParams);
         tv.setTextSize(HEADER_SIZE);
         tv.setPadding(0,0,0, HEADER_PADDING);
@@ -206,9 +214,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     }
 
     // we use this to add a thicker line above and below the stories
-    private void addEmptyLine(){
+    private void addTopLine(){
         View tv = new View(getActivity());
-        tv.setLayoutParams(lineParams);
+        tv.setLayoutParams(topLineParams);
+        tv.setBackgroundColor(getResources().getColor(R.color.LightGrey));
+        ll.addView(tv);
+    }
+
+    // we use this to add a thicker line above and below the stories
+    private void addBottomLine(){
+        View tv = new View(getActivity());
+        tv.setLayoutParams(bottomLineParams);
+        tv.setBackgroundColor(getResources().getColor(R.color.LightGrey));
         ll.addView(tv);
     }
 }

@@ -10,6 +10,7 @@
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:gravity="center"
+
                   android:orientation="vertical">
 
         <ScrollView
@@ -20,29 +21,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginLeft="7dp"
-                android:layout_marginRight="7dp"
-                android:layout_marginBottom="3dp"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center">
 
                 <DatePicker
                     android:id="@+id/datePicker"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border"
-                    android:layout_marginTop="3dp"
                     android:calendarTextColor="@color/white"/>
 
                 <TextView
                     android:id="@+id/calendar_text"
+                    android:layout_marginTop="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/Gold"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
                     android:textAlignment="center"
-                    android:textSize="18sp" />
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="5dp"
+                    android:textSize="16dp" />
             </LinearLayout>
         </ScrollView>
 
