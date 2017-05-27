@@ -36,6 +36,14 @@
                 android:textColor="@color/colorPrimary"
                 android:text="News Feed"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:gravity="center"
+                android:layout_marginTop="70dp"
+                android:text="Please click home button to refresh feed"/>
+
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

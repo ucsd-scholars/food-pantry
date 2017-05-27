@@ -109,12 +109,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         // creates a new textView that will be placed in our scrolling linear layout
         TextView tv = new TextView(getActivity());
-        String text = "<b>" + s.title + "</b> <br />" + s.story;
+        String text = "<b>" + s.title + "</b> <br />" + s.date + "<br /> <br />" + s.story;
         tv.setText(Html.fromHtml(text));
         tv.setLayoutParams(layoutParams);
         tv.setTextSize(STORY_TITLE_SIZE);
-        tv.setPadding(convertToDP(HORIZONTAL_PADDING),convertToDP(VERTICAL_PADDING),
-                      convertToDP(HORIZONTAL_PADDING), convertToDP(VERTICAL_PADDING));
+        tv.setPadding(convertToDP(HORIZONTAL_PADDING),convertToDP(VERTICAL_PADDING / 2),
+                      convertToDP(HORIZONTAL_PADDING), convertToDP(VERTICAL_PADDING) - 2);
         // tv.setTextColor(getResources().getColor(R.color.colorPrimary));
         tv.setBackgroundColor(getResources().getColor(R.color.white));
         //tv.setBackground(getResources().getDrawable(R.drawable.border));
@@ -204,6 +204,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         tv.setPadding(0,0,0, HEADER_PADDING);
         tv.setGravity(Gravity.CENTER);
         ll.addView(tv);
+
+        // if stories are empty/has not been retrieved from firebase yet, we tell user to refresh home screen
+        if(MainActivity.db.stories.size() == 0){
+            TextView tv2 = new TextView(getActivity());
+            String text2 = "Please click home button" + "<br />" + "to refresh feed";
+            tv2.setText(Html.fromHtml(text2));
+            tv2.setLayoutParams(layoutParams);
+            tv2.setTextSize(STORY_TITLE_SIZE);
+            tv2.setMaxLines(MAX_LINES);
+            tv2.setGravity(Gravity.CENTER);
+            ll.addView(tv2);
+        }
     }
 
     // converts pixels to dp

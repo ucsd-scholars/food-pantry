@@ -45,14 +45,14 @@ public class InboxActivity extends AppCompatActivity {
     private void addNewStory(Story s) {
         // creates a new textView that will be placed in our scrolling linear layout
         TextView tv = new TextView(this);
-        String text = "<b>" + s.title + "</b> <br />" + s.story;
+        String text = "<b>" + s.title + "</b> <br />" + s.date + "<br /> <br />" + s.story;
         tv.setText(Html.fromHtml(text));
         tv.setLayoutParams(layoutParams);
         tv.setTextSize(STORY_TITLE_SIZE);
         // tv.setTextColor(getResources().getColor(R.color.colorPrimary));
         tv.setBackgroundColor(getResources().getColor(R.color.white));
-        tv.setPadding(convertToDP(HORIZONTAL_PADDING),convertToDP(VERTICAL_PADDING),
-                      convertToDP(HORIZONTAL_PADDING), convertToDP(VERTICAL_PADDING));
+        tv.setPadding(convertToDP(HORIZONTAL_PADDING),convertToDP(VERTICAL_PADDING / 2),
+                      convertToDP(HORIZONTAL_PADDING), convertToDP(VERTICAL_PADDING - 2));
         //tv.setBackground(getResources().getDrawable(R.drawable.border));
         tv.setMaxLines(MAX_LINES);
         ll.addView(tv);

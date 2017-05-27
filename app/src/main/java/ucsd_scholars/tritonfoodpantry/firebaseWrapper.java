@@ -220,7 +220,7 @@ public class firebaseWrapper {
             Map singleStory = (Map) entry.getValue();
             //Get story and append to list
             Story story = new Story((String) singleStory.get("title"), (String) singleStory.get("story"),
-                                    (long) singleStory.get("time"));
+                                    (long) singleStory.get("time"), (String) singleStory.get("date"));
             notifications.add((Story) story);
 
             Log.d("firebasewrapper", singleStory.toString());
@@ -245,7 +245,7 @@ public class firebaseWrapper {
             Map singleStory = (Map) entry.getValue();
             //Get story and append to list
             Story story = new Story((String) singleStory.get("title"), (String) singleStory.get("story"),
-                                    (long) singleStory.get("time"));
+                                    (long) singleStory.get("time"), (String) singleStory.get("date"));
             stories.add((Story) story);
 
             Log.d("firebasewrapper", singleStory.toString());
