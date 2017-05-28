@@ -65,7 +65,9 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         fragment = new HomeFragment();
         final FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_container, fragment).commit();
-        
+
+        //getSupportActionBar().setTitle("Home");
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
@@ -78,13 +80,16 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         switch (item.getItemId()) {
             case R.id.menu_home:
                 fragment = new HomeFragment();
+                //getSupportActionBar().setTitle("Home");
                 isHome = true;
                 break;
             case R.id.menu_calendar:
                 fragment = new CalendarFragment();
+                //getSupportActionBar().setTitle("Calendar");
                 break;
             case R.id.menu_more:
                 fragment = new MoreOptionsFragment();
+                //getSupportActionBar().setTitle("More Options");
                 break;
             default:
                 return false;

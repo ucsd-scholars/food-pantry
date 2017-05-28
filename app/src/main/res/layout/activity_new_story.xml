@@ -36,4 +36,12 @@
         android:layout_marginTop="5dp"
         android:text="Add Event to Home Page" />
 
+    <Button
+        android:id="@+id/button_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="dialogPromptCancel"
+        android:layout_marginTop="8dp"
+        android:text="Cancel" />
+
 </LinearLayout>
