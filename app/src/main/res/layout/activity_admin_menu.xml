@@ -37,4 +37,18 @@
         android:layout_marginTop="8dp"
         android:text="Post on News Feed" />
 
+    <Button
+        android:id="@+id/button_removeStories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Remove a Post" />
+
+    <!--<Button
+        android:id="@+id/button_removeNotifications"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Remove a Notification" />-->
+
 </LinearLayout>
