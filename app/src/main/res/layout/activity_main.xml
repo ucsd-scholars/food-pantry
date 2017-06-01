@@ -40,10 +40,8 @@
             android:layout_marginRight="52dp"
             android:layout_toLeftOf="@+id/button_signIn"
             android:layout_toStartOf="@+id/button_signIn"
-            android:background="@color/yellow"
             android:onClick="onClickSignUp"
             android:text="Sign Up"
-            android:textColor="@color/black"
             android:textColorLink="@color/Blue" />
 
         <Button
@@ -53,10 +51,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:background="@color/yellow"
             android:onClick="onClickLogin"
-            android:text="Sign In"
-            android:textColor="@color/black" />
+            android:text="Sign In" />
     </RelativeLayout>
 
     <ImageButton
@@ -79,7 +75,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="@string/title"
-        android:textColor="@color/black"
+        android:textColor="@color/colorPrimary"
         android:textSize="50dp"
         android:textStyle="bold" />
 
