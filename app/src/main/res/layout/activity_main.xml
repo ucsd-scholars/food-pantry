@@ -1,78 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
 
-                tools:context="ucsd_scholars.tritonfoodpantry.MainActivity">
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="ucsd_scholars.tritonfoodpantry.MainActivity">
 
     <ImageView
         android:id="@+id/logo"
-        android:src="@drawable/profile_white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:src="@drawable/blue_outline"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:id="@+id/linearLayout"
         android:layout_above="@+id/button_Google"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="1">
 
         <Button
             android:id="@+id/button_signUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="52dp"
+            android:layout_marginRight="52dp"
+            android:layout_toLeftOf="@+id/button_signIn"
+            android:layout_toStartOf="@+id/button_signIn"
+            android:background="@color/yellow"
             android:onClick="onClickSignUp"
-            android:layout_marginRight="2.5dp"
-            android:text="Sign Up" />
+            android:text="Sign Up"
+            android:textColor="@color/black"
+            android:textColorLink="@color/Blue" />
 
         <Button
             android:id="@+id/button_signIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/yellow"
             android:onClick="onClickLogin"
-            android:layout_marginLeft="2.5dp"
-            android:text="Sign In" />
-    </LinearLayout>
+            android:text="Sign In"
+            android:textColor="@color/black" />
+    </RelativeLayout>
 
     <ImageButton
         android:id="@+id/button_Google"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/button_facebook"
+        android:layout_centerHorizontal="true"
         android:onClick="onClickGoogle"
         android:src="@drawable/google_48"
-        android:text="Google"
-        android:layout_above="@+id/button_facebook"
-        android:layout_centerHorizontal="true" />
+        android:text="Google" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="@string/title"
-        android:textSize="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:textColor="@color/black"
+        android:textSize="50dp" />
 
     <com.facebook.login.widget.LoginButton
+        android:id="@+id/button_facebook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button_facebook"
-        android:layout_marginBottom="10dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp" />
 
 </RelativeLayout>

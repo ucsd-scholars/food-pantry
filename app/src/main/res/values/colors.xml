@@ -131,7 +131,7 @@
     <color name="SlateBlue">#6A5ACD</color>
     <color name="DimGray">#696969</color>
     <color name="MediumAquamarine">#66CDAA</color>
-    <color name="CornflowerBlue">#6495ED</color>
+    <color name="CornflowerBlue">#1c3c76</color>
     <color name="CadetBlue">#5F9EA0</color>
     <color name="DarkOliveGreen">#556B2F</color>
     <color name="Indigo">#4B0082</color>
@@ -149,7 +149,7 @@
     <color name="DodgerBlue">#1E90FF</color>
     <color name="MidnightBlue">#191970</color>
     <color name="Aqua">#00FFFF</color>
-    <color name="Cyan">#00FFFF</color>
+    <color name="Cyan">#00ffff</color>
     <color name="SpringGreen">#00FF7F</color>
     <color name="Lime">#00FF00</color>
     <color name="MediumSpringGreen">#00FA9A</color>
