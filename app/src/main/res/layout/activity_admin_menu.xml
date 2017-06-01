@@ -6,13 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_marginTop="8dp"
     tools:context="ucsd_scholars.tritonfoodpantry.AdminMenuActivity">
-
-    <Button
-        android:id="@+id/button_toAdminInventory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Inventory"/>
 
     <Button
         android:id="@+id/button_addAdmin"
@@ -24,18 +20,35 @@
         android:id="@+id/button_revokeAdmin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Revoke Administrator Privileges"/>
 
     <Button
         android:id="@+id/button_toNotificationActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Send Notification" />
 
     <Button
         android:id="@+id/button_editHomePage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Edit Home Page" />
+        android:layout_marginTop="8dp"
+        android:text="Post on News Feed" />
+
+    <Button
+        android:id="@+id/button_removeStories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Remove a Post" />
+
+    <!--<Button
+        android:id="@+id/button_removeNotifications"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Remove a Notification" />-->
 
 </LinearLayout>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TritonFoodPantry</string>
+    <string name="app_name">Triton Food Pantry</string>
     <string name="title">Triton Food Pantry</string>
     <string name="title_activity_login">Sign in</string>
     <string name="title_activity_signup">Sign Up</string>
@@ -158,8 +158,10 @@
     <string name="admin_uid">czw9GL4bcTP0Qrc7Uga2uE9G9um1</string>
     <string name="admin_email">testadmin@example.com</string>
 
+    <string name="link_volunteer"><a href="https://as.ucsd.edu/councilStaff/showDescriptions.php?id=188">Volunteer Form</a></string>
     <string name="link"><a href="https://www.facebook.com/tritonfoodpantry/">Facebook Page</a></string>
     <string name="email_text">foodpantry@ucsd.edu</string>
     <string name="phone_number"><a href="tel:8585345694">(858)534-5694</a></string>
+    <string name="location">Located in the Original Student Center</string>
 
 </resources>

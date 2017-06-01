@@ -2,35 +2,54 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
+
              tools:context="ucsd_scholars.tritonfoodpantry.MoreOptionsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
+
         android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button_recentNotifications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+
+            android:text="Recent Notifications" />
 
         <Button
             android:id="@+id/button_toVolunteer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+
             android:text="Volunteer" />
 
         <Button
             android:id="@+id/button_toContact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+
             android:text="Contact Us" />
 
         <Button
             android:id="@+id/button_SignOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+
             android:text="Sign out" />
 
         <Button
             android:id="@+id/button_toAdminMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+
             android:text="Administrator Actions" />
 
     </LinearLayout>

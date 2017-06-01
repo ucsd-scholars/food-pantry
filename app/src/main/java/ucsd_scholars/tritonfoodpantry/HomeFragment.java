@@ -4,10 +4,12 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.text.Html;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ScrollView;
@@ -19,22 +21,32 @@ import android.widget.TextView;
  * Activities that contain this fragment must implement the
  * {@link HomeFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link HomeFragment#newInstance} factory method to
+ * Use the {@link HomeFragment newInstance} factory method to
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-   static final String STORY_TITLE_AND_DETAILS = "param1";
+    static final String STORY_TITLE_AND_DETAILS = "param1";
 
-    private static final int STORY_TEXT_SIZE = 40;
+    private static final int STORY_TITLE_SIZE = 16;
+    private static final int STORY_BODY_SIZE = 15;
+    private static final int BOTTOM_PADDING = 10;
+
+    private static final int HEADER_SIZE = 40;
+    private static final int HEADER_PADDING = 5;
+    private static final int HORIZONTAL_PADDING = 0;
+    private static final int VERTICAL_PADDING = 8;
+    private static final int IMAGE_PADDING = 8;
+    private static final int MAX_LINES = 1000;
 
     private ScrollView scroll;
     private LinearLayout ll;
-    LinearLayout.LayoutParams layoutParams;
+    LinearLayout.LayoutParams layoutParams, imageParams, topLineParams, bottomLineParams;
+    private ImageView image;
 
     // TODO: Rename and change types of parameters
-    private String storyText;
+    // private String storyText;
 
     private OnFragmentInteractionListener mListener;
 
@@ -62,12 +74,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if(savedInstanceState != null && savedInstanceState.getString(STORY_TITLE_AND_DETAILS) != null){
-            storyText = savedInstanceState.getString(STORY_TITLE_AND_DETAILS);
-            Log.d("HomeFragment", storyText);
-            addNewStory(storyText);
-        }
     }
 
     @Override
@@ -81,27 +87,42 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         scroll = (ScrollView) view.findViewById(R.id.home_scroll);
         ll = (LinearLayout) scroll.findViewById(R.id.home_news_feed);
         layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(convertToDP(HORIZONTAL_PADDING), 0,
+                convertToDP(HORIZONTAL_PADDING), convertToDP(VERTICAL_PADDING));
+        imageParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        imageParams.setMargins(convertToDP(HORIZONTAL_PADDING),convertToDP(IMAGE_PADDING),
+                convertToDP(HORIZONTAL_PADDING), convertToDP(IMAGE_PADDING));
+        imageParams.gravity = Gravity.CENTER;
+        topLineParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, convertToDP(2));
+        topLineParams.setMargins(0,convertToDP(VERTICAL_PADDING), 0, 0);
+        bottomLineParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, convertToDP(2));
+        bottomLineParams.setMargins(0,0, 0, 0);
 
-        // this function adds events/stories to our scrolling home page
-        // addNewStory("This is a news story");
-        if(getArguments() != null && getArguments().getString(STORY_TITLE_AND_DETAILS) != null){
-            storyText = getArguments().getString(STORY_TITLE_AND_DETAILS);
-            Log.d("HomeFragment", "got the story text from bundle!!!" + storyText);
-            addNewStory(storyText);
-        }
+        updateNewsFeed();
 
         return view;
     }
 
-    // this function adds events/stories to our scrolling home page
-    private void addNewStory(String string) {
+    // this function adds notifications to our scrolling inbox page
+    private void addNewStory(Story s) {
+        // addTopLine();
+
         // creates a new textView that will be placed in our scrolling linear layout
         TextView tv = new TextView(getActivity());
-        tv.setText(string);
+        String text = "<b>" + s.title + "</b> <br />" + s.date + "<br /> <br />" + s.story;
+        tv.setText(Html.fromHtml(text));
         tv.setLayoutParams(layoutParams);
-        tv.setTextSize(STORY_TEXT_SIZE);
-        tv.setPadding(0,0,0,5);
+        tv.setTextSize(STORY_TITLE_SIZE);
+        tv.setPadding(convertToDP(HORIZONTAL_PADDING),convertToDP(VERTICAL_PADDING / 2),
+                      convertToDP(HORIZONTAL_PADDING), convertToDP(VERTICAL_PADDING) - 2);
+        // tv.setTextColor(getResources().getColor(R.color.colorPrimary));
+        tv.setBackgroundColor(getResources().getColor(R.color.white));
+        //tv.setBackground(getResources().getDrawable(R.drawable.border));
+        tv.setMaxLines(MAX_LINES);
+        //tv.setPadding(0, convertToDP(HEADER_PADDING), 0, 0);
         ll.addView(tv);
+
+        // addBottomLine();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -126,6 +147,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        clearNewsFeed();
     }
 
     /**
@@ -148,5 +170,74 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         switch (view.getId()) {
 
         }
+    }
+
+    // loops through all notifications from database
+    // the empty lines make it look better
+    public void updateNewsFeed(){
+        clearNewsFeed();
+        for(int i = 0; i < MainActivity.db.stories.size(); i++){
+            addNewStory(MainActivity.db.stories.get(i));
+        }
+    }
+
+    // clears the news feed before updating, adds the header back
+    public void clearNewsFeed(){
+        if(ll.getChildCount() > 0){
+            ll.removeAllViews();
+        }
+
+        // re-adds image and header after clearing screen
+        image = new ImageView(getActivity());
+        image.setBackgroundResource(R.drawable.triton_food_pantry_logo);
+        image.setLayoutParams(imageParams);
+        ll.addView(image);
+
+        TextView tv = new TextView(getActivity());
+        String text = "<b>" + "News Feed" + "</b>";
+        tv.setText(Html.fromHtml(text));
+        tv.setTextColor(getResources().getColor(R.color.white));
+        //tv.setBackground(getResources().getDrawable(R.drawable.border));
+        tv.setBackgroundColor(getResources().getColor(R.color.Gold));
+        tv.setLayoutParams(layoutParams);
+        tv.setTextSize(HEADER_SIZE);
+        tv.setPadding(0,0,0, HEADER_PADDING);
+        tv.setGravity(Gravity.CENTER);
+        ll.addView(tv);
+
+        // if stories are empty/has not been retrieved from firebase yet, we tell user to refresh home screen
+        if(MainActivity.db.stories.size() == 0){
+            TextView tv2 = new TextView(getActivity());
+            String text2 = "Please click home button" + "<br />" + "to refresh feed";
+            tv2.setText(Html.fromHtml(text2));
+            tv2.setLayoutParams(layoutParams);
+            tv2.setTextSize(STORY_TITLE_SIZE);
+            tv2.setMaxLines(MAX_LINES);
+            tv2.setGravity(Gravity.CENTER);
+            ll.addView(tv2);
+        }
+    }
+
+    // converts pixels to dp
+    private int convertToDP(int paddingPixel){
+        float density = this.getResources().getDisplayMetrics().density;
+        int paddingDp = (int)(paddingPixel * density);
+        return paddingDp;
+    }
+
+    // we use this to add a thicker line above and below the stories
+    private void addTopLine(){
+        View tv = new View(getActivity());
+        tv.setLayoutParams(topLineParams);
+        tv.setBackgroundColor(getResources().getColor(R.color.LightGrey));
+        ll.addView(tv);
+    }
+
+    // we use this to add a thicker line above and below the stories
+    private void addBottomLine(){
+        View tv = new View(getActivity());
+        tv.setLayoutParams(bottomLineParams);
+        tv.setBackgroundColor(getResources().getColor(R.color.LightGrey));
+        ll.addView(tv);
     }
 }

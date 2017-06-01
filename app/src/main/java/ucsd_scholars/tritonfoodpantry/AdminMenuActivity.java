@@ -8,20 +8,17 @@ import android.widget.Button;
 
 public class AdminMenuActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button button_toInventory;
     private Button button_addAdmin;
     private Button button_revokeAdmin;
     private Button button_toNotificationActivity;
     private Button button_editHomePage;
+    private Button button_removeStory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_menu);
 
-
-        button_toInventory = (Button)findViewById(R.id.button_toAdminInventory);
-        button_toInventory.setOnClickListener(this);
         button_toNotificationActivity = (Button)findViewById(R.id.button_toNotificationActivity);
         button_toNotificationActivity.setOnClickListener(this);
         button_addAdmin = (Button)findViewById(R.id.button_addAdmin);
@@ -30,17 +27,14 @@ public class AdminMenuActivity extends AppCompatActivity implements View.OnClick
         button_revokeAdmin.setOnClickListener(this);
         button_editHomePage = (Button)findViewById(R.id.button_editHomePage);
         button_editHomePage.setOnClickListener(this);
+        button_removeStory = (Button)findViewById(R.id.button_removeStories);
+        button_removeStory.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view){
         Intent intent;
         switch (view.getId()){
-            case R.id.button_toAdminInventory:
-                intent = new Intent(this, InventoryActivity.class);
-                startActivity(intent);
-                break;
-
             case R.id.button_addAdmin:
                 intent = new Intent(this, AddAdminActivity.class);
                 startActivity(intent);
@@ -58,6 +52,11 @@ public class AdminMenuActivity extends AppCompatActivity implements View.OnClick
 
             case R.id.button_editHomePage:
                 intent = new Intent(this, NewStoryActivity.class);
+                startActivity(intent);
+                break;
+
+            case R.id.button_removeStories:
+                intent = new Intent(this, RemoveStoryActivity.class);
                 startActivity(intent);
                 break;
         }

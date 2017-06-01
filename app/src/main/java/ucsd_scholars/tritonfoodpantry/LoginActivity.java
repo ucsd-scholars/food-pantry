@@ -409,8 +409,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                         Toast.LENGTH_SHORT).show();
                             }
                             else {
-                                Toast.makeText(LoginActivity.this, "not admin",
-                                        Toast.LENGTH_SHORT).show();
+                                /*Toast.makeText(LoginActivity.this, "not admin",
+                                        Toast.LENGTH_SHORT).show();*/
                             }
                             // adds our user email to database
                             db.writeToEmailList(user.getEmail().toLowerCase());

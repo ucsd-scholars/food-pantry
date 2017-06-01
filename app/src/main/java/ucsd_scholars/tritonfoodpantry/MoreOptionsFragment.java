@@ -43,6 +43,7 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
     private Button button_sign_out;
     private Button button_volunteer;
     private Button button_contact;
+    private Button button_recentNotifications;
 
     private HomeActivity homeActivity;
 
@@ -97,10 +98,12 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
         button_sign_out = (Button) view.findViewById(R.id.button_SignOut);
         button_volunteer = (Button) view.findViewById(R.id.button_toVolunteer);
         button_contact = (Button) view.findViewById(R.id.button_toContact);
+        button_recentNotifications = (Button) view.findViewById(R.id.button_recentNotifications);
 
         button_volunteer.setOnClickListener(this);
         button_contact.setOnClickListener(this);
         button_sign_out.setOnClickListener(this);
+        button_recentNotifications.setOnClickListener(this);
 
         // gives admins permissions like notification ability, hides its otherwise
         if(isAdmin){
@@ -158,6 +161,10 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
     public void onClick(View view){
         Intent intent;
         switch (view.getId()) {
+            case R.id.button_recentNotifications:
+                intent = new Intent(getActivity(), InboxActivity.class);
+                getActivity().startActivity(intent);
+                break;
             case R.id.button_toAdminMenu:
                 intent = new Intent(getActivity(), AdminMenuActivity.class);
                 getActivity().startActivity(intent);
