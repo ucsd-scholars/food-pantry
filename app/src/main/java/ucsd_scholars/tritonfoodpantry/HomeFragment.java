@@ -36,6 +36,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private static final int HEADER_SIZE = 40;
     private static final int HEADER_PADDING = 5;
     private static final int HORIZONTAL_PADDING = 0;
+    private static final int HORIZONTAL_PADDING_TEXT_VIEWS = 7;
     private static final int VERTICAL_PADDING = 8;
     private static final int IMAGE_PADDING = 8;
     private static final int MAX_LINES = 1000;
@@ -113,8 +114,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         tv.setText(Html.fromHtml(text));
         tv.setLayoutParams(layoutParams);
         tv.setTextSize(STORY_TITLE_SIZE);
-        tv.setPadding(convertToDP(HORIZONTAL_PADDING),convertToDP(VERTICAL_PADDING / 2),
-                      convertToDP(HORIZONTAL_PADDING), convertToDP(VERTICAL_PADDING) - 2);
+        tv.setPadding(convertToDP(HORIZONTAL_PADDING_TEXT_VIEWS),convertToDP(VERTICAL_PADDING / 2),
+                      convertToDP(HORIZONTAL_PADDING_TEXT_VIEWS), convertToDP(VERTICAL_PADDING) - 2);
         // tv.setTextColor(getResources().getColor(R.color.colorPrimary));
         tv.setBackgroundColor(getResources().getColor(R.color.white));
         //tv.setBackground(getResources().getDrawable(R.drawable.border));
