@@ -96,6 +96,8 @@ public class NewStoryActivity extends AppCompatActivity {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
         builder1.setMessage("Are you sure you want to add this story to the news feed?");
         builder1.setCancelable(true);
+        builder1.setIcon(getResources().getDrawable(R.drawable.profile_outline));
+
 
         builder1.setPositiveButton(
                 "Yes",

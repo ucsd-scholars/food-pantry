@@ -192,6 +192,7 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
         Log.d("MoreOptionsFragment", "sign out button pressed");
         new AlertDialog.Builder(getActivity())
                 .setTitle("Sign Out")
+                .setIcon(getResources().getDrawable(R.drawable.profile_outline))
                 .setMessage("Are you sure you want to sign out?")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
