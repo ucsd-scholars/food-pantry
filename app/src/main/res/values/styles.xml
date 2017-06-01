@@ -13,9 +13,15 @@
     </style>
 
     <!-- Activity with no Title -->
-    <style name="ThemeOverlay.MyNoTitleActivity" parent="AppTheme">
+    <style name="ThemeOverlay.MyNoTitleActivity" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/DeepSkyBlue</item>
+        <item name="colorPrimaryDark">@color/DeepSkyBlue</item>
+        <item name="colorAccent">@color/Gold</item>
+        <item name="android:buttonStyle">@style/ButtonStyle</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
     </style>
 
     <!-- Dark Buttons -->
@@ -42,6 +48,16 @@
         <item name="android:textSize">17dp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:background">@drawable/button_color</item>
+    </style>
+
+    <!-- All Regular Buttons -->
+    <style name="ButtonStyle_Blue" parent="android:Widget.Material.Button">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:textSize">17dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/button_color_blue</item>
     </style>
 
     // dialog style

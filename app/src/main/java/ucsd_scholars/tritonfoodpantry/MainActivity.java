@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         db = new firebaseWrapper();
         db.addMessage("Database!");
         db.readMsg();
@@ -116,6 +117,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // changes the logo to white
+        //ImageView logo = (ImageView) findViewById(R.id.logo);
+        //logo.setColorFilter(Color.WHITE);
     }
 
     public void onClickLogin(View view){
