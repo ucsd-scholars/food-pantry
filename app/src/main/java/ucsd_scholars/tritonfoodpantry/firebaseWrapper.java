@@ -271,4 +271,16 @@ public class firebaseWrapper {
             return t2 - t1;
         }
     }
+
+    // remove a story from the database
+    protected void removeStory(String id){
+        DatabaseReference stories = database.getReference("stories");
+        stories.child(id).removeValue();
+    }
+
+    // remove a notification from the database
+    protected void removeNotifications(String id){
+        DatabaseReference notifications = database.getReference("notifications");
+        notifications.child(id).removeValue();
+    }
 }

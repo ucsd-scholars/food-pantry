@@ -1,5 +1,7 @@
 package ucsd_scholars.tritonfoodpantry;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -29,7 +31,7 @@ public class NewStoryActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addNewStory();
+                dialogPromptSend(v);
             }
         });
     }
@@ -60,5 +62,59 @@ public class NewStoryActivity extends AppCompatActivity {
         intent.putExtra(HomeFragment.STORY_TITLE_AND_DETAILS, eventTitleText + " " + eventDetailsText);
         intent.setAction(ACTION_ADD_STORY);
         startActivity(intent);*/
+    }
+
+    // pop up dialog to the user asking if he/she wants to cancel notification
+    public void dialogPromptCancel(View view){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("Are you sure you want to delete this story?");
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        finish();
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    // asks if admin is sure about sending story
+    public void dialogPromptSend(View view){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("Are you sure you want to add this story to the news feed?");
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        addNewStory();
+                        finish();
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
     }
 }

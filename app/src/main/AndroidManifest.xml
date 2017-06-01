@@ -7,8 +7,8 @@
     <uses-permission android:name="android.permission.READ_PROFILE"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_CALENDAR" />
-    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.READ_CALENDAR"/>
+    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
 
     <application
         android:allowBackup="true"
@@ -21,7 +21,8 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+                  android:theme="@style/ThemeOverlay.MyNoTitleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -36,7 +37,7 @@
         </activity>
         <activity
             android:name=".NotificationActivity"
-            android:label="@string/title_activity_notifications">
+            android:label="Send Notification">
             >
         </activity>
         <activity
@@ -61,21 +62,33 @@
                 <data android:scheme="@string/fb_login_protocol_scheme"/>
             </intent-filter>
         </activity>
-        <activity android:name=".AddAdminActivity">
+        <activity
+            android:name=".AddAdminActivity"
+            android:label="Add Administrator">
         </activity>
-        <activity android:name=".AdminMenuActivity">
+        <activity
+            android:name=".AdminMenuActivity"
+            android:label="Administrator Actions">
         </activity>
-        <activity android:name=".InventoryActivity">
+        <activity
+            android:name=".InventoryActivity"
+            android:label="Inventory">
         </activity>
-        <activity android:name=".RevokeAdminActivity">
+        <activity
+            android:name=".RevokeAdminActivity"
+            android:label="Revoke Administrator">
         </activity>
-        <activity android:name=".VolunteerActivity">
+        <activity
+            android:name=".VolunteerActivity"
+            android:label="Volunteer">
             <action android:name="android.intent.action.VIEW"/>
 
             <category android:name="android.intent.category.DEFAULT"/>
             <category android:name="android.intent.category.BROWSABLE"/>
         </activity>
-        <activity android:name=".NewStoryActivity">
+        <activity
+            android:name=".NewStoryActivity"
+            android:label="Post on News Feed">
         </activity>
 
         <service
@@ -100,9 +113,16 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
 
-        <activity android:name=".ContactActivity">
+        <activity
+            android:name=".ContactActivity"
+            android:label="Contact Us">
         </activity>
-        <activity android:name=".InboxActivity">
+        <activity
+            android:name=".InboxActivity"
+            android:label="Recent Notifications">
+        </activity>
+        <activity android:name=".RemoveStoryActivity"
+            android:label="Remove a Post">
         </activity>
     </application>
 
