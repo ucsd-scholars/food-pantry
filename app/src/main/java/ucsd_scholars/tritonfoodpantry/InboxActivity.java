@@ -56,20 +56,16 @@ public class InboxActivity extends AppCompatActivity {
         //tv.setBackground(getResources().getDrawable(R.drawable.border));
         tv.setMaxLines(MAX_LINES);
         ll.addView(tv);
-
-        /*TextView tv2 = new TextView(this);
-        tv2.setText(s.story);
-        tv2.setLayoutParams(layoutParams);
-        tv2.setTextSize(STORY_BODY_SIZE);
-        // tv2.setPadding(0,0,0,5);
-        tv2.setBottom(BOTTOM_PADDING);
-        ll.addView(tv2);*/
     }
 
     // loops through all notifications from database
     public void updateInbox(){
         clearInbox();
         for(int i = 0; i < MainActivity.db.notifications.size(); i++){
+            // so that we don't flood the inbox with over 20 old notifications at a time
+            if(i > 20){
+                break;
+            }
             addNewStory(MainActivity.db.notifications.get(i));
         }
     }

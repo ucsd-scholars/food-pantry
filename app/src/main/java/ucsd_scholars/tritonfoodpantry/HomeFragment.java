@@ -178,6 +178,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public void updateNewsFeed(){
         clearNewsFeed();
         for(int i = 0; i < MainActivity.db.stories.size(); i++){
+            // so that we don't flood the homepage with over 50 old stories at a time
+            if(i > 50){
+                break;
+            }
             addNewStory(MainActivity.db.stories.get(i));
         }
     }
